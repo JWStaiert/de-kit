@@ -1,0 +1,11 @@
+# Notes regarding Vulkan Layers 
+
+To change the layer search path of the vulkan loader without modifying system paths or
+directories set environment variable VK_LAYER_PATH to a list of directories. While this
+variable is defined only those paths will be searched for layers. On Windows, paths
+should be seperated by a semi-colon (;) while on Linux and macOS use colon (:).
+
+To force layers to be used by an application set VK_INSTANCE_LAYERS to a list of layer
+names. On Windows the layer names should be seperated by a semi-colon (;) while on
+Linux and mac OS use colon (:).
+
