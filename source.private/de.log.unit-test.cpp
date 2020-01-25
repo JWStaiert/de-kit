@@ -241,7 +241,7 @@ TEST_F( de__log__started_test , warning_message )
 	}
 
 	EXPECT_EQ( l_line_vector.size( ) , 1 );
-	EXPECT_EQ( l_line_vector[ 0 ] , "de__log__started_test_warning_message_Test::TestBody @ 233 | warning message" );
+	EXPECT_EQ( l_line_vector[ 0 ] , "de__log__started_test_warning_message_Test::TestBody@233| warning message" );
 }
 
 TEST_F( de__log__started_test , exception_message )
@@ -257,7 +257,7 @@ TEST_F( de__log__started_test , exception_message )
 	}
 
 	EXPECT_EQ( l_line_vector.size( ) , 1 );
-	EXPECT_EQ( l_line_vector[ 0 ] , "de__log__started_test_exception_message_Test::TestBody @ 249 | !EXCEPTION! exception message" );
+	EXPECT_EQ( l_line_vector[ 0 ] , "de__log__started_test_exception_message_Test::TestBody@249| !EXCEPTION! exception message" );
 }
 
 TEST_F( de__log__stdout_test , message )

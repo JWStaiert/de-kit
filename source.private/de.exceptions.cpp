@@ -2,51 +2,35 @@
 
 #include "de.exceptions.hpp"
 
+#include "de.util.hpp"
+
 namespace de
 {
-	/* This code is called to populate an exception string so we want to keep this code free of system calls and memory allocations (no std::string or std::stringstream.) */
-
-	inline void exception::concat_buffer( const char * p_string )
+	namespace exceptions
 	{
-		auto i = 0;
+		/* JWS: This code will be called to populate an exception string so it must be thread safe and free of system calls and memory allocations. */
 
-		while ( ( i < ( sizeof( m_buffer ) - 1 ) ) && ( m_buffer[ i ] != 0 ) )
+		/* thread_local makes access thread safe. */
+		static thread_local de::util::cstring_array<4096 - sizeof( de::util::cstring_basic )> s_buffer;
+
+		const char * format( const char * p_prefix , const char * p_message )
 		{
-			i++;
+			s_buffer.reset( );
+			s_buffer.append_cstring( p_prefix );
+			s_buffer.append_cstring( p_message );
+			return s_buffer;
 		}
 
-		auto j = 0;
-
-		while ( ( i < ( sizeof( m_buffer ) - 1 ) ) && ( ( m_buffer[ i ] = p_string[ j ] ) != 0 ) )
+		const char * format( const char * p_prefix , const char * p_expression , const char * p_message )
 		{
-			i++;
-			j++;
+			s_buffer.reset( );
+			s_buffer.append_cstring( p_prefix );
+			s_buffer.append_cstring( "Expression (" );
+			s_buffer.append_cstring( p_expression );
+			s_buffer.append_cstring( ") indicates failure. " );
+			s_buffer.append_cstring( p_message );
+			return s_buffer;
 		}
-	}
-
-	inline void exception::initialize_buffer( const char * p_function , const char * p_line , const char * p_message )
-	{
-		concat_buffer( p_function );
-		concat_buffer( " @ " );
-		concat_buffer( p_line );
-		concat_buffer( " | " );
-		concat_buffer( p_message );
-	}
-
-	exception::exception( const char * p_function , const char * p_line , const char * p_message )
-		: m_buffer { 0 }
-	{
-		initialize_buffer( p_function , p_line , p_message );
-	}
-
-	exception::exception( const char * p_function , const char * p_line , const std::string & p_message )
-		: m_buffer { 0 }
-	{
-		initialize_buffer( p_function , p_line , p_message.c_str( ) );
-	}
-
-	exception::~exception( )
-	{
 	}
 }
 

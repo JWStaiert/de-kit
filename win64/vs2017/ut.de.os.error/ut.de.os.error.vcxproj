@@ -24,11 +24,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\source.private\de.exceptions.cpp" />
+    <ClCompile Include="..\..\..\source.private\de.log.cpp" />
     <ClCompile Include="..\..\..\source.private\de.os.error.cpp" />
     <ClCompile Include="..\..\..\source.private\de.os.error.unit-test.cpp" />
+    <ClCompile Include="..\..\..\source.private\de.util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\source.private\de.log.unit-test.hpp" />
+    <ClInclude Include="..\..\..\source.public\de.log.hpp" />
     <ClInclude Include="..\..\..\source.public\de.os.error.hpp" />
+    <ClInclude Include="..\..\..\source.public\de.util.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

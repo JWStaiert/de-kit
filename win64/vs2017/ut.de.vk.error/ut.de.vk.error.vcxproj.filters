@@ -11,7 +11,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\source.public\de.exceptions.hpp">
+    <ClInclude Include="..\..\..\source.public\de.vk.error.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\source.public\de.util.hpp">
@@ -19,10 +19,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source.private\de.exceptions.unit-test.cpp">
+    <ClCompile Include="..\..\..\source.private\de.vk.error.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source.private\de.exceptions.cpp">
+    <ClCompile Include="..\..\..\source.private\de.vk.error.unit-test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source.private\de.util.cpp">

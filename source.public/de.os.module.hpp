@@ -18,8 +18,6 @@ namespace de
 
 		public:
 
-			static void set_search_path( const std::string & p_path );
-
 			module( ) = delete;
 
 			module( const std::string & p_pathname );

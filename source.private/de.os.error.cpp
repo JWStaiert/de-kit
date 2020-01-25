@@ -2,7 +2,7 @@
 
 #include "de.os.error.hpp"
 
-#include "de.exceptions.hpp"
+#include "de.util.hpp"
 
 #include <windows.h>
 
@@ -10,88 +10,57 @@ namespace de
 {
 	namespace os
 	{
-		/* This code is usually called to populate an exception string or log message so we want to keep this code free of system calls and memory allocations (no std::string or std::stringstream.) */
-
-		static inline char lsB_to_ascii( unsigned int p_value )
+		namespace error
 		{
-			unsigned int l_value = p_value % 16;
+			/* JWS: This code will be called to populate an exception string so it must be thread safe and free of system calls and memory allocations. */
 
-			if ( ( 0 <= l_value ) && ( l_value <= 9 ) )
+			/* thread_local makes access thread safe. */
+			static thread_local de::util::cstring_array<4096 - sizeof( de::util::cstring_basic )> s_buffer;
+
+			const char * format( const char * p_expression )
 			{
-				return static_cast<char>( l_value + '0' );
-			}
-			else
-			{
-				return static_cast<char>( ( l_value - 10 ) + 'A' );
-			}
-		}
+				DWORD l_last_error = GetLastError( );
 
-		inline void error::concat_buffer( const char * p_string )
-		{
-			auto i = 0;
+				s_buffer.reset( );
+				s_buffer.append_cstring( "Expression (" );
+				s_buffer.append_cstring( p_expression );
+				s_buffer.append_cstring( ") indicates failure. GetLastError(" );
+				s_buffer.append_hexadecimal( static_cast<std::uint32_t>( l_last_error ) );
+				s_buffer.append_cstring( ")=[" );
 
-			while ( ( i < ( sizeof( m_buffer ) - 1 ) ) && ( m_buffer[ i ] != 0 ) )
-			{
-				i++;
-			}
+				char l_buffer[ 2048 ] { 0 };
 
-			auto j = 0;
-
-			while ( ( i < ( sizeof( m_buffer ) - 1 ) ) && ( ( m_buffer[ i ] = p_string[ j ] ) != 0 ) )
-			{
-				i++;
-				j++;
-			}
-		}
-
-		/* */
-		error::error( )
-			: m_buffer { 0 }
-		{
-			concat_buffer( "GetLastError(####:####) = " );
-
-			DWORD l_last_error = GetLastError( );
-
-			m_buffer[ 13 ] = lsB_to_ascii( l_last_error >> 28 );
-			m_buffer[ 14 ] = lsB_to_ascii( l_last_error >> 24 );
-			m_buffer[ 15 ] = lsB_to_ascii( l_last_error >> 20 );
-			m_buffer[ 16 ] = lsB_to_ascii( l_last_error >> 16 );
-
-			m_buffer[ 18 ] = lsB_to_ascii( l_last_error >> 12 );
-			m_buffer[ 19 ] = lsB_to_ascii( l_last_error >>  8 );
-			m_buffer[ 20 ] = lsB_to_ascii( l_last_error >>  4 );
-			m_buffer[ 21 ] = lsB_to_ascii( l_last_error       );
-
-			if ( !FormatMessageA(
-				( FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS ) ,
-				NULL ,
-				l_last_error ,
-				MAKELANGID( LANG_NEUTRAL , SUBLANG_DEFAULT ) ,
-				& m_buffer[26] ,
-				( sizeof( m_buffer ) - 27 ),
-				NULL
-				) )
-			{
-				concat_buffer( "FormatMessageA failed." );
-			}
-			else
-			{
-				for ( int i = 0 ; i < sizeof( m_buffer ) ; ++i )
+				if ( !FormatMessageA(
+					( FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS ) ,
+					NULL ,
+					l_last_error ,
+					MAKELANGID( LANG_NEUTRAL , SUBLANG_DEFAULT ) ,
+					l_buffer ,
+					sizeof( l_buffer ) ,
+					NULL
+					) )
 				{
-					if ( m_buffer[ i ] == 0 )
-					{
-						/* Strip trailing new-line and carriage return. */
-						m_buffer[ --i ] = 0;
-						m_buffer[ --i ] = 0;
-						break;
-					}
+					s_buffer.append_cstring( "FormatMessageA failed" );
 				}
-			}
-		}
+				else
+				{
+					for ( int i = 0 ; i < sizeof( l_buffer ) ; ++i )
+					{
+						/* Strip trailing period, carriage return, and newline. */
+						if ( l_buffer[ i ] == '.' || l_buffer[ i ] == '\r' || l_buffer[ i ] == '\n' )
+						{
+							l_buffer[ i ] = 0;
+							break;
+						}
+					}
 
-		/* */
-		error::~error( )
-		{
+					s_buffer.append_cstring( l_buffer );
+				}
+
+				s_buffer.append_cstring( "]." );
+
+				return s_buffer;
+			}
 		}
 	}
 }

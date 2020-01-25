@@ -25,10 +25,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\source.public\de.exceptions.hpp" />
+    <ClInclude Include="..\..\..\source.public\de.util.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source.private\de.exceptions.cpp" />
     <ClCompile Include="..\..\..\source.private\de.exceptions.unit-test.cpp" />
+    <ClCompile Include="..\..\..\source.private\de.util.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

@@ -3,40 +3,24 @@
 
 #include <stdexcept>
 
-#define DE_THROW_STRINGIFY( value ) #value
+#define DE__EXCEPTIONS__STRINGIFY( value ) #value
 
-#define DE_THROW_TO_STRING( value ) DE_THROW_STRINGIFY( value )
-
-#define DE_THROW_EXCEPTION( message ) de::exception { __FUNCTION__ , DE_THROW_TO_STRING( __LINE__ ) , message }
+#define DE__EXCEPTIONS__TO_STRING( value ) DE__EXCEPTIONS__STRINGIFY( value )
 
 /* */
-#define DE_THROW_RUNTIME_ERROR( message ) throw std::runtime_error( DE_THROW_EXCEPTION( message ) )
+#define DE__EXCEPTIONS__THROW_RUNTIME_ERROR( message ) throw std::runtime_error( de::exceptions::format( __FUNCTION__ "@" DE__EXCEPTIONS__TO_STRING( __LINE__ ) "| " , message ) )
+
+/* */
+#define DE__EXCEPTIONS__CHECK_AND_THROW_RUNTIME_ERROR( expression , message ) if ( expression ) { throw std::runtime_error( de::exceptions::format( __FUNCTION__ "@" DE__EXCEPTIONS__TO_STRING( __LINE__ ) "| " , #expression , message ) ); }
 
 namespace de
 {
-	class exception
+	namespace exceptions
 	{
-		char m_buffer[ 4096 ];
+		const char * format( const char * p_prefix , const char * p_message );
 
-		inline void concat_buffer( const char * p_string );
-
-		inline void initialize_buffer( const char * p_function , const char * p_line , const char * p_message );
-
-	public:
-
-		exception( const char * p_function , const char * p_line , const char * p_message );
-
-		exception( const char * p_function , const char * p_line , const std::string & p_message );
-
-		exception( const exception & ) = delete;
-
-		~exception( );
-
-		exception & operator=( const exception & ) = delete;
-
-		operator const char *( ) const { return m_buffer; }
-
-	};
+		const char * format( const char * p_prefix , const char * p_expression , const char * p_message );
+	}
 }
 
 /* END */
