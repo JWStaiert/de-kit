@@ -23,10 +23,10 @@
     <ClCompile Include="..\..\..\source.private\de.os.error.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source.private\de.exceptions.cpp">
+    <ClCompile Include="..\..\..\source.private\de.util.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source.private\de.util.cpp">
+    <ClCompile Include="..\..\..\source.private\de.exception.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

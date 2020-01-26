@@ -2,7 +2,7 @@
 
 #include "gtest/gtest.h"
 
-#include "de.exceptions.hpp"
+#include "de.exception.hpp"
 
 #include <string>
 
@@ -10,7 +10,7 @@ TEST( de__exceptions , _DE__EXCEPTIONS__THROW_RUNTIME_ERROR_throws )
 {
 	try
 	{
-		DE__EXCEPTIONS__THROW_RUNTIME_ERROR( "cstring" );
+		DE__EXCEPTION__THROW_RUNTIME_ERROR( "cstring" );
 
 		FAIL( ) << "Expected exception.";
 	}
@@ -28,7 +28,7 @@ TEST( de__exceptions , _DE__EXCEPTIONS__CHECK_AND_THROW_RUNTIME_ERROR_success )
 {
 	try
 	{
-		DE__EXCEPTIONS__CHECK_AND_THROW_RUNTIME_ERROR( false , "cstring" );
+		DE__EXCEPTION__CHECK_AND_THROW_RUNTIME_ERROR( false , "cstring" );
 	}
 	catch ( ... )
 	{
@@ -40,7 +40,7 @@ TEST( de__exceptions , _DE__EXCEPTIONS__CHECK_AND_THROW_RUNTIME_ERROR_failure )
 {
 	try
 	{
-		DE__EXCEPTIONS__CHECK_AND_THROW_RUNTIME_ERROR( true , "cstring" );
+		DE__EXCEPTION__CHECK_AND_THROW_RUNTIME_ERROR( true , "cstring" );
 
 		FAIL( ) << "Expected exception.";
 	}

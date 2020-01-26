@@ -11,15 +11,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\source.public\de.vk.error.hpp">
+    <ClInclude Include="..\..\..\source.public\de.exception.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source.public\de.util.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source.private\de.vk.error.cpp">
+    <ClCompile Include="..\..\..\source.private\de.exception.unit-test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source.private\de.vk.error.unit-test.cpp">
+    <ClCompile Include="..\..\..\source.private\de.exception.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source.private\de.util.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

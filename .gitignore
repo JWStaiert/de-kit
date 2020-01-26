@@ -1,5 +1,6 @@
 .vs
 win64/targets/de-kit.*
+win64/tests
 win64/**/Debug
 win64/**/Release
 win64/**/x64

@@ -157,17 +157,17 @@ TEST( de_log , alignof_stream )
 
 TEST_F( de__log__test , not_started_info_does_not_throw )
 {
-	EXPECT_NO_THROW( DE_LOG_INFO( "test" ) );
+	EXPECT_NO_THROW( DE__LOG__INFO( "test" ) );
 }
 
 TEST_F( de__log__test , not_started_warning_does_not_throw )
 {
-	EXPECT_NO_THROW( DE_LOG_WARNING( "test" ) );
+	EXPECT_NO_THROW( DE__LOG__WARNING( "test" ) );
 }
 
 TEST_F( de__log__test , not_started_exception_does_not_throw )
 {
-	EXPECT_NO_THROW( DE_LOG_EXCEPTION( "test" ) );
+	EXPECT_NO_THROW( DE__LOG__EXCEPTION( "test" ) );
 }
 
 TEST_F( de__log__test , start_stop_file_operations )
@@ -214,7 +214,7 @@ TEST_F( de__log__test , start_stop_file_operations )
 
 TEST_F( de__log__started_test , info_message )
 {
-	EXPECT_NO_THROW( DE_LOG_INFO( "info message" << std::endl ) );
+	EXPECT_NO_THROW( DE__LOG__INFO( "info message" << std::endl ) );
 
 	std::string l_line;
 	std::vector<std::string> l_line_vector;
@@ -230,7 +230,7 @@ TEST_F( de__log__started_test , info_message )
 
 TEST_F( de__log__started_test , warning_message )
 {
-	EXPECT_NO_THROW( DE_LOG_WARNING( "warning message" << std::endl ) );
+	EXPECT_NO_THROW( DE__LOG__WARNING( "warning message" << std::endl ) );
 
 	std::string l_line;
 	std::vector<std::string> l_line_vector;
@@ -246,7 +246,7 @@ TEST_F( de__log__started_test , warning_message )
 
 TEST_F( de__log__started_test , exception_message )
 {
-	EXPECT_NO_THROW( DE_LOG_EXCEPTION( "exception message" << std::endl ) );
+	EXPECT_NO_THROW( DE__LOG__EXCEPTION( "exception message" << std::endl ) );
 
 	std::string l_line;
 	std::vector<std::string> l_line_vector;
@@ -262,7 +262,7 @@ TEST_F( de__log__started_test , exception_message )
 
 TEST_F( de__log__stdout_test , message )
 {
-	EXPECT_NO_THROW( DE_LOG_INFO( "message" << std::endl ) );
+	EXPECT_NO_THROW( DE__LOG__INFO( "message" << std::endl ) );
 
 	std::string l_line;
 	std::vector<std::string> l_line_vector;
@@ -278,7 +278,7 @@ TEST_F( de__log__stdout_test , message )
 
 TEST_F( de__log__stderr_test , message )
 {
-	EXPECT_NO_THROW( DE_LOG_INFO( "message" << std::endl ) );
+	EXPECT_NO_THROW( DE__LOG__INFO( "message" << std::endl ) );
 
 	std::string l_line;
 	std::vector<std::string> l_line_vector;

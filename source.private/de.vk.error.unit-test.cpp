@@ -4,7 +4,9 @@
 
 #include "de.vk.error.hpp"
 
+#include <regex>
 #include <string>
+
 #include <vulkan/vulkan.h>
 
 TEST( de__vk__error , _format_UNRECOGNIZED )
@@ -187,5 +189,36 @@ TEST( de__vk__error , _format_VK_ERROR_INVALID_DEVICE_ADDRESS_EXT )
 	EXPECT_EQ( std::string( de::vk::error::format( VK_ERROR_INVALID_DEVICE_ADDRESS_EXT ) ) , "VkResult(C4617CE0)=[INVALID_OPAQUE_CAPTURE_ADDRESS_KHR]." );
 }
 
+TEST( de__vk__error , _DE__VK__ERROR__CHECK_AND_THROW_RUNTIME_ERROR_success )
+{
+	try
+	{
+		DE__VK__ERROR__CHECK_AND_THROW_RUNTIME_ERROR( VK_SUCCESS );
+	}
+	catch ( ... )
+	{
+		FAIL( ) << "Unexpected exception.";
+	}
+}
+
+TEST( de__vk__error , _DE__VK__ERROR__CHECK_AND_THROW_RUNTIME_ERROR_failure )
+{
+	try
+	{
+		DE__VK__ERROR__CHECK_AND_THROW_RUNTIME_ERROR( VK_NOT_READY );
+
+		FAIL( ) << "Expected exception.";
+	}
+	catch ( std::runtime_error & exc )
+	{
+		std::regex re { "de__vk__error__DE__VK__ERROR__CHECK_AND_THROW_RUNTIME_ERROR_failure_Test::TestBody@[0-9]+\\| Expression \\(l_result != VK_SUCCESS\\) indicates failure\\. VkResult\\(00000001\\)=\\[NOT_READY\\]." };
+
+		EXPECT_TRUE( std::regex_match( exc.what( ) , re ) ) << exc.what( );
+	}
+	catch ( ... )
+	{
+		FAIL( ) << "Unexpected exception.";
+	}
+}
 
 /* END */

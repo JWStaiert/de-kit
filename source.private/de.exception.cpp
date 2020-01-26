@@ -1,6 +1,6 @@
 /* Copyright (c) 2020 Jason William Staiert. All Rights Reserved. */
 
-#include "de.exceptions.hpp"
+#include "de.exception.hpp"
 
 #include "de.util.hpp"
 

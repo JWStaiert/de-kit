@@ -8,16 +8,14 @@
 
 #include <cstdint>
 
-#include "de.exceptions.hpp"
+/* */
+#define DE__LOG__INFO( expression ) { std::lock_guard<std::mutex> lock { de::log::stream.mutex }; if ( de::log::stream.ptr != nullptr ) { *(de::log::stream.ptr) << expression ; de::log::stream.ptr->flush( ); } }
 
 /* */
-#define DE_LOG_INFO( expression ) { std::lock_guard<std::mutex> lock { de::log::stream.mutex }; if ( de::log::stream.ptr != nullptr ) { *(de::log::stream.ptr) << expression ; de::log::stream.ptr->flush( ); } }
+#define DE__LOG__WARNING( expression ) { std::lock_guard<std::mutex> lock { de::log::stream.mutex }; if ( de::log::stream.ptr != nullptr ) { *(de::log::stream.ptr) << __FUNCTION__ << "@" << __LINE__ << "| " << expression ; de::log::stream.ptr->flush( ); } }
 
 /* */
-#define DE_LOG_WARNING( expression ) { std::lock_guard<std::mutex> lock { de::log::stream.mutex }; if ( de::log::stream.ptr != nullptr ) { *(de::log::stream.ptr) << __FUNCTION__ << "@" << __LINE__ << "| " << expression ; de::log::stream.ptr->flush( ); } }
-
-/* */
-#define DE_LOG_EXCEPTION( expression ) { std::lock_guard<std::mutex> lock { de::log::stream.mutex }; if ( de::log::stream.ptr != nullptr ) { *(de::log::stream.ptr) << __FUNCTION__ << "@" << __LINE__ << "| !" << "EXCEPTION" << "! " << expression ; de::log::stream.ptr->flush( ); } }
+#define DE__LOG__EXCEPTION( expression ) { std::lock_guard<std::mutex> lock { de::log::stream.mutex }; if ( de::log::stream.ptr != nullptr ) { *(de::log::stream.ptr) << __FUNCTION__ << "@" << __LINE__ << "| !" << "EXCEPTION" << "! " << expression ; de::log::stream.ptr->flush( ); } }
 
 namespace de
 {

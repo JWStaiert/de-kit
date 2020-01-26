@@ -24,7 +24,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source.private\de.exceptions.cpp" />
+    <ClCompile Include="..\..\..\source.private\de.exception.cpp" />
     <ClCompile Include="..\..\..\source.private\de.log.cpp" />
     <ClCompile Include="..\..\..\source.private\de.os.error.cpp" />
     <ClCompile Include="..\..\..\source.private\de.os.error.unit-test.cpp" />

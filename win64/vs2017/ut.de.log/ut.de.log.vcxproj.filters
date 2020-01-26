@@ -21,8 +21,5 @@
     <ClInclude Include="..\..\..\source.public\de.log.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source.public\de.exceptions.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
