@@ -19,18 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\lib.de\lib.de.vcxproj">
+      <Project>{8dc6f2c9-dd77-4915-b7a3-a5ce45aee430}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\lib.googletest\lib.googletest.vcxproj">
       <Project>{b04469aa-2233-4e81-9f21-0d1972756bd8}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\source.public\de.exception.hpp" />
-    <ClInclude Include="..\..\..\source.public\de.util.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\source.private\de.exception.cpp" />
     <ClCompile Include="..\..\..\source.private\de.exception.unit-test.cpp" />
-    <ClCompile Include="..\..\..\source.private\de.util.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

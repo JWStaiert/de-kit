@@ -60,9 +60,9 @@ TEST_F( de__os__module__test , _ctor_failure )
 
 		FAIL( ) << "Expected exception.";
 	}
-	catch ( std::runtime_error & exc )
+	catch ( const std::runtime_error & exc )
 	{
-		std::regex re { "de::os::module::module@[0-9]+\\| Expression \\(l_module == NULL\\) indicates failure\\. GetLastError\\(00000057\\)=\\[The parameter is incorrect\\]\\." };
+		std::regex re { "de::os::module::module@[0-9]+\\| Expression indicates failure: l_module == 0 \\| GetLastError\\(00000057\\)=\\[The parameter is incorrect\\]" };
 
 		EXPECT_TRUE( std::regex_match( exc.what( ) , re ) ) << exc.what( );
 	}
@@ -90,9 +90,11 @@ TEST_F( de__os__module__test , _dtor_failure )
 
 		EXPECT_EQ( m_log_lines.size( ) , 1 );
 
-		std::regex re { "de::os::module::~module@[0-9]+\\| !EXCEPTION! Expression \\(!FreeLibrary\\( l_module \\)\\) indicates failure\\. GetLastError\\(0000007E\\)=\\[The specified module could not be found\\]\\." };
+		std::regex re { "de::os::module::~module@[0-9]+\\| !EXCEPTION! Expression indicates failure: !FreeLibrary\\( l_module \\) \\| GetLastError\\(0000007E\\)=\\[The specified module could not be found\\]" };
 
 		EXPECT_TRUE( std::regex_match( m_log_lines[ 0 ] , re ) ) << m_log_lines[ 0 ];
+
+		ClearLog( );
 	}
 	catch ( ... )
 	{
@@ -115,9 +117,9 @@ TEST_F( de__os__module__test , _get_function_address_failure )
 
 		FAIL( ) << "Expected exception.";
 	}
-	catch ( std::runtime_error & exc )
+	catch ( const std::runtime_error & exc )
 	{
-		std::regex re { "de::os::module::get_function_address@[0-9]+\\| Expression \\(l_proc == NULL\\) indicates failure\\. GetLastError\\(0000007F\\)=\\[The specified procedure could not be found\\]\\." };
+		std::regex re { "de::os::module::get_function_address@[0-9]+\\| Expression indicates failure: l_proc == 0 \\| GetLastError\\(0000007F\\)=\\[The specified procedure could not be found\\]" };
 
 		EXPECT_TRUE( std::regex_match( exc.what( ) , re ) ) << exc.what( );
 	}

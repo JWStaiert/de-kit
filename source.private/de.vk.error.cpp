@@ -37,12 +37,12 @@ namespace de
 
 		namespace error
 		{
-			const char * format( VkResult p_result )
+			const char * format_result( VkResult p_result )
 			{
 				s_buffer.reset( );
-				s_buffer.append_cstring( "VkResult(" );
+				s_buffer.append_cstring( "vk_result = " );
 				s_buffer.append_hexadecimal( static_cast<std::int32_t>( p_result ) );
-				s_buffer.append_cstring( ")=[" );
+				s_buffer.append_cstring( " = " );
 
 				switch ( p_result )
 				{
@@ -147,7 +147,24 @@ namespace de
 					break;
 				}
 
-				s_buffer.append_cstring( "]." );
+				return s_buffer;
+			}
+
+			const char * format_parameter( const char * p_parameter , const char * p_value )
+			{
+				s_buffer.reset( );
+				s_buffer.append_cstring( p_parameter );
+
+				if ( p_value != nullptr )
+				{
+					s_buffer.append_cstring( " = \"" );
+					s_buffer.append_cstring( p_value );
+					s_buffer.append_cstring( "\"" );
+				}
+				else
+				{
+					s_buffer.append_cstring( " = nullptr" );
+				}
 
 				return s_buffer;
 			}

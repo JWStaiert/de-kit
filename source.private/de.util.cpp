@@ -47,12 +47,15 @@ namespace de
 
 		void cstring_basic::append_cstring( const char * p_cstring ) noexcept
 		{
-			auto i = 0u;
-
-			while ( ( m_end < m_last ) && ( ( m_buffer[ m_end ] = p_cstring[ i ] ) != 0 ) )
+			if ( p_cstring != nullptr )
 			{
-				++m_end;
-				++i;
+				auto i = 0u;
+
+				while ( ( m_end < m_last ) && ( ( m_buffer[ m_end ] = p_cstring[ i ] ) != 0 ) )
+				{
+					++m_end;
+					++i;
+				}
 			}
 		}
 

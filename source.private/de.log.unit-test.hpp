@@ -31,20 +31,22 @@ public:
 		std::cout.rdbuf( m_log.rdbuf( ) );
 	}
 
-	~de__log__test( )
+	virtual ~de__log__test( )
 	{
 		/* Restore std::cout. */
 		std::cout.rdbuf( m_sbuf );
 	}
 
-	void SetUp( )
+	virtual void SetUp( )
 	{
 		de::log::start( "stdout" );
 	}
 
-	void TearDown( )
+	virtual void TearDown( )
 	{
 		de::log::stop( );
+
+		CheckLog( );
 	}
 
 	void ProcessLog( )
@@ -54,6 +56,22 @@ public:
 		while ( std::getline( m_log , l_line ) )
 		{
 			m_log_lines.push_back( l_line );
+		}
+	}
+
+	void ClearLog( )
+	{
+		m_log.str( std::string { } );
+		m_log_lines.resize( 0 );
+	}
+
+	void CheckLog( )
+	{
+		ProcessLog( );
+
+		for ( auto i : m_log_lines )
+		{
+			ADD_FAILURE( ) << "unexpected log line: " << i << std::endl;
 		}
 	}
 };

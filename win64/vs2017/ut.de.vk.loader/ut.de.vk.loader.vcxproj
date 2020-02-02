@@ -19,6 +19,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\source.private\de.log.unit-test.hpp" />
+    <ClInclude Include="..\..\..\source.private\de.unit-test.hpp" />
+    <ClInclude Include="..\..\..\source.public\de.vk.error.hpp" />
+    <ClInclude Include="..\..\..\source.public\de.vk.loader.hpp" />
+    <ClInclude Include="..\..\..\source.public\de.vk.util.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\source.private\de.vk.error.cpp" />
+    <ClCompile Include="..\..\..\source.private\de.vk.loader.cpp" />
+    <ClCompile Include="..\..\..\source.private\de.vk.loader.unit-test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\dll.de.vk.mock\dll.de.vk.mock.vcxproj">
+      <Project>{802b7dc0-5886-4ffb-8be5-ee9a93a247fc}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\lib.de\lib.de.vcxproj">
       <Project>{8dc6f2c9-dd77-4915-b7a3-a5ce45aee430}</Project>
     </ProjectReference>
@@ -26,14 +41,11 @@
       <Project>{b04469aa-2233-4e81-9f21-0d1972756bd8}</Project>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\source.private\de.os.module.unit-test.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{CD04D581-6B17-4613-A691-76E5E7F9183B}</ProjectGuid>
+    <ProjectGuid>{52850B71-C534-4211-B81B-8DB0C2484D23}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>utdeosmodule</RootNamespace>
+    <RootNamespace>utdevkloader</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -103,7 +115,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
@@ -125,7 +137,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
@@ -149,7 +161,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
@@ -175,7 +187,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>

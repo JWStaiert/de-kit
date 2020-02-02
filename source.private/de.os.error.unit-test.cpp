@@ -42,28 +42,28 @@ public:
 TEST( de__os__error , format_00000000 )
 {
 	SetLastError( 0 );
-	EXPECT_EQ( std::string( de::os::error::format( "null" ) ), "Expression (null) indicates failure. GetLastError(00000000)=[The operation completed successfully]." );
+	EXPECT_EQ( std::string( de::os::error::format( ) ), "GetLastError(00000000)=[The operation completed successfully]" );
 }
 
 TEST( de__os__error , format_00000001 )
 {
 	SetLastError( 1 );
-	EXPECT_EQ( std::string( de::os::error::format( "null" ) ) , "Expression (null) indicates failure. GetLastError(00000001)=[Incorrect function]." );
+	EXPECT_EQ( std::string( de::os::error::format( ) ) , "GetLastError(00000001)=[Incorrect function]" );
 }
 
 TEST( de__os__error , format_0000000A )
 {
 	SetLastError( 0xA );
-	EXPECT_EQ( std::string( de::os::error::format( "null" ) ) , "Expression (null) indicates failure. GetLastError(0000000A)=[The environment is incorrect]." );
+	EXPECT_EQ( std::string( de::os::error::format( ) ) , "GetLastError(0000000A)=[The environment is incorrect]" );
 }
 
 TEST( de__os__error , format_FFFFFFF )
 {
 	SetLastError( 0xFFFFFFFF );
-	EXPECT_EQ( std::string( de::os::error::format( "null" ) ) , "Expression (null) indicates failure. GetLastError(FFFFFFFF)=[FormatMessageA failed]." );
+	EXPECT_EQ( std::string( de::os::error::format( ) ) , "GetLastError(FFFFFFFF)=[FormatMessageA failed]" );
 }
 
-TEST( de__os__error , _DE__OS__ERROR__CHECK_AND_THROW_success )
+TEST( de__os__error , DE__OS__ERROR__CHECK_AND_THROW_success )
 {
 	try
 	{
@@ -75,7 +75,7 @@ TEST( de__os__error , _DE__OS__ERROR__CHECK_AND_THROW_success )
 	}
 }
 
-TEST( de__os__error , _DE__OS__ERROR__CHECK_AND_THROW_failure )
+TEST( de__os__error , DE__OS__ERROR__CHECK_AND_THROW_failure )
 {
 	try
 	{
@@ -84,9 +84,9 @@ TEST( de__os__error , _DE__OS__ERROR__CHECK_AND_THROW_failure )
 
 		FAIL( ) << "Expected exception.";
 	}
-	catch ( std::runtime_error & exc )
+	catch ( const std::runtime_error & exc )
 	{
-		std::regex re { "de__os__error__DE__OS__ERROR__CHECK_AND_THROW_failure_Test::TestBody@[0-9]+\\| Expression \\(true\\) indicates failure\\. GetLastError\\(00000001\\)=\\[Incorrect function\\]\\." };
+		std::regex re { "de__os__error_DE__OS__ERROR__CHECK_AND_THROW_failure_Test::TestBody@[0-9]+\\| Expression indicates failure: true \\| GetLastError\\(00000001\\)=\\[Incorrect function\\]" };
 
 		EXPECT_TRUE( std::regex_match( exc.what( ) , re ) ) << exc.what( );
 	}
@@ -96,7 +96,7 @@ TEST( de__os__error , _DE__OS__ERROR__CHECK_AND_THROW_failure )
 	}
 }
 
-TEST_F( de__os__error__test , _DE__OS__ERROR__CHECK_AND_LOG_success )
+TEST_F( de__os__error__test , DE__OS__ERROR__CHECK_AND_LOG_success )
 {
 	DE__OS__ERROR__CHECK_AND_LOG( false );
 
@@ -105,7 +105,7 @@ TEST_F( de__os__error__test , _DE__OS__ERROR__CHECK_AND_LOG_success )
 	EXPECT_EQ( m_log_lines.size( ) , 0 );
 }
 
-TEST_F( de__os__error__test , _DE__OS__ERROR__CHECK_AND_LOG_failure )
+TEST_F( de__os__error__test , DE__OS__ERROR__CHECK_AND_LOG_failure )
 {
 	SetLastError( 0xAF );
 	DE__OS__ERROR__CHECK_AND_LOG( true );
@@ -114,9 +114,11 @@ TEST_F( de__os__error__test , _DE__OS__ERROR__CHECK_AND_LOG_failure )
 
 	EXPECT_EQ( m_log_lines.size( ) , 1 );
 
-	std::regex re { "de__os__error__test__DE__OS__ERROR__CHECK_AND_LOG_failure_Test::TestBody@[0-9]+\\| !EXCEPTION! Expression \\(true\\) indicates failure\\. GetLastError\\(000000AF\\)=\\[FormatMessageA failed\\]\\." };
+	std::regex re { "de__os__error__test_DE__OS__ERROR__CHECK_AND_LOG_failure_Test::TestBody@[0-9]+\\| !EXCEPTION! Expression indicates failure: true \\| GetLastError\\(000000AF\\)=\\[FormatMessageA failed\\]" };
 
 	EXPECT_TRUE( std::regex_match( m_log_lines[ 0 ] , re ) ) << m_log_lines[ 0 ];
+
+	ClearLog( );
 }
 
 /* END */

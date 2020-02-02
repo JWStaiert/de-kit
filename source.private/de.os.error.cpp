@@ -17,14 +17,12 @@ namespace de
 			/* thread_local makes access thread safe. */
 			static thread_local de::util::cstring_array<4096 - sizeof( de::util::cstring_basic )> s_buffer;
 
-			const char * format( const char * p_expression )
+			const char * format( )
 			{
 				DWORD l_last_error = GetLastError( );
 
 				s_buffer.reset( );
-				s_buffer.append_cstring( "Expression (" );
-				s_buffer.append_cstring( p_expression );
-				s_buffer.append_cstring( ") indicates failure. GetLastError(" );
+				s_buffer.append_cstring( "GetLastError(" );
 				s_buffer.append_hexadecimal( static_cast<std::uint32_t>( l_last_error ) );
 				s_buffer.append_cstring( ")=[" );
 
@@ -57,7 +55,7 @@ namespace de
 					s_buffer.append_cstring( l_buffer );
 				}
 
-				s_buffer.append_cstring( "]." );
+				s_buffer.append_cstring( "]" );
 
 				return s_buffer;
 			}
