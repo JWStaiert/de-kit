@@ -4,7 +4,7 @@
 
 #include "de.os.error.hpp"
 
-#include <windows.h>
+#include <Windows.h>
 
 namespace de
 {
@@ -16,7 +16,7 @@ namespace de
 		{
 			HMODULE l_module = LoadLibraryA( p_pathname.c_str( ) );
 
-			DE__OS__ERROR__CHECK_AND_THROW( l_module == NULL );
+			DE__OS__ERROR__CHECK( l_module == NULL );
 
 			m_module = static_cast<void *>( l_module );
 		}
@@ -26,7 +26,7 @@ namespace de
 		{
 			HMODULE l_module = static_cast<HMODULE>( m_module );
 
-			DE__OS__ERROR__CHECK_AND_LOG( !FreeLibrary( l_module ) );
+			DE__OS__ERROR__LOG( !FreeLibrary( l_module ) );
 		}
 
 		/* */
@@ -36,7 +36,7 @@ namespace de
 
 			FARPROC l_proc = GetProcAddress( l_module , p_name.c_str( ) );
 
-			DE__OS__ERROR__CHECK_AND_THROW( l_proc == NULL );
+			DE__OS__ERROR__CHECK( l_proc == NULL );
 
 			return static_cast<void *>( l_proc );
 		}

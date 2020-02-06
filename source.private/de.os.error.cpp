@@ -4,7 +4,7 @@
 
 #include "de.util.hpp"
 
-#include <windows.h>
+#include <Windows.h>
 
 namespace de
 {
@@ -17,7 +17,7 @@ namespace de
 			/* thread_local makes access thread safe. */
 			static thread_local de::util::cstring_array<4096 - sizeof( de::util::cstring_basic )> s_buffer;
 
-			const char * format( )
+			const char * get_message( )
 			{
 				DWORD l_last_error = GetLastError( );
 

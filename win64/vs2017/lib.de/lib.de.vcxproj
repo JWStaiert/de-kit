@@ -176,10 +176,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\source.public\de.app.hpp" />
     <ClInclude Include="..\..\..\source.public\de.exception.hpp" />
+    <ClInclude Include="..\..\..\source.public\de.handle.hpp" />
     <ClInclude Include="..\..\..\source.public\de.log.hpp" />
-    <ClInclude Include="..\..\..\source.public\de.os.error.hpp" />
-    <ClInclude Include="..\..\..\source.public\de.os.module.hpp" />
     <ClInclude Include="..\..\..\source.public\de.util.hpp" />
     <ClInclude Include="..\..\..\source.public\de.version.hpp" />
     <ClInclude Include="targetver.h" />
@@ -187,8 +187,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\source.private\de.exception.cpp" />
     <ClCompile Include="..\..\..\source.private\de.log.cpp" />
-    <ClCompile Include="..\..\..\source.private\de.os.error.cpp" />
-    <ClCompile Include="..\..\..\source.private\de.os.module.cpp" />
     <ClCompile Include="..\..\..\source.private\de.util.cpp" />
     <ClCompile Include="..\..\..\source.private\de.version.cpp" />
   </ItemGroup>

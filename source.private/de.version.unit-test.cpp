@@ -47,7 +47,7 @@ TEST( de__version , ctor_major_minor_patch_failure_on_major )
 	}
 	catch ( std::logic_error & exc )
 	{
-		std::regex re { "de::version::version@[0-9]+\\| Program violates assertion: p_major < 1024" };
+		std::regex re { "de::version::version@[0-9]+ \\| Program violates condition: p_major < 1024" };
 
 		EXPECT_TRUE( std::regex_match( exc.what( ) , re ) ) << exc.what( );
 	}
@@ -67,7 +67,7 @@ TEST( de__version , ctor_major_minor_patch_failure_on_minor )
 	}
 	catch ( std::logic_error & exc )
 	{
-		std::regex re { "de::version::version@[0-9]+\\| Program violates assertion: p_minor < 1024" };
+		std::regex re { "de::version::version@[0-9]+ \\| Program violates condition: p_minor < 1024" };
 
 		EXPECT_TRUE( std::regex_match( exc.what( ) , re ) ) << exc.what( );
 	}
@@ -87,7 +87,7 @@ TEST( de__version , ctor_major_minor_patch_failure_on_patch )
 	}
 	catch ( std::logic_error & exc )
 	{
-		std::regex re { "de::version::version@[0-9]+\\| Program violates assertion: p_patch < 4096" };
+		std::regex re { "de::version::version@[0-9]+ \\| Program violates condition: p_patch < 4096" };
 
 		EXPECT_TRUE( std::regex_match( exc.what( ) , re ) ) << exc.what( );
 	}
@@ -179,6 +179,5 @@ TEST( de__version , operator_boolean_equality )
 	EXPECT_FALSE( uut_a != "1.2.4" );
 	EXPECT_FALSE( "1.2.4" != uut_a );
 }
-
 
 /* END */
