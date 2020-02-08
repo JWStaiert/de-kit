@@ -1,53 +1,50 @@
 /* Copyright (c) 2020 Jason William Staiert. All Rights Reserved. */
 
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 #include "de.log.hpp"
 
-#include <cstdio>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <vector>
 
-class de__log__test : public testing::Test
+class de__log__test_fixture : public testing::Test
 {
 protected:
-
-	const std::string m_logname;
+	const std::filesystem::path m_logname;
 
 	std::fstream m_log;
 
 public:
-
-	de__log__test( )
-		: m_logname { "./test.log" }
-		, m_log { }
+	de__log__test_fixture( )
+		: m_logname{ L"./test.log" }
+		, m_log{}
 	{
 	}
 
-	~de__log__test( )
+	~de__log__test_fixture( )
 	{
 	}
 
 	void SetUp( )
 	{
-		m_log.open( m_logname , ( std::ios::trunc | std::ios::in | std::ios::out ) );
+		m_log.open( m_logname, ( std::ios::trunc | std::ios::in | std::ios::out ) );
 	}
 
 	void TearDown( )
 	{
 		m_log.close( );
 
-		std::remove( m_logname.c_str( ) );
+		std::filesystem::remove( m_logname );
 	}
 };
 
-class de__log__started_test : public de__log__test
+class de__log__started_test : public de__log__test_fixture
 {
 public:
-
 	de__log__started_test( )
 	{
 	}
@@ -58,7 +55,7 @@ public:
 
 	void SetUp( )
 	{
-		de__log__test::SetUp( );
+		de__log__test_fixture::SetUp( );
 
 		de::log::start( m_logname );
 	}
@@ -67,22 +64,20 @@ public:
 	{
 		de::log::stop( );
 
-		de__log__test::TearDown( );
+		de__log__test_fixture::TearDown( );
 	}
 };
 
 class de__log__stdout_test : public testing::Test
 {
-	std::streambuf * m_sbuf;
+	std::streambuf* m_sbuf;
 
 protected:
-
 	std::stringstream m_log;
 
 public:
-
 	de__log__stdout_test( )
-		: m_log { }
+		: m_log{}
 	{
 		/* Save std::cout buffer. */
 		m_sbuf = std::cout.rdbuf( );
@@ -99,7 +94,7 @@ public:
 
 	void SetUp( )
 	{
-		de::log::start( "stdout" );
+		de::log::start( L"stdout" );
 	}
 
 	void TearDown( )
@@ -110,16 +105,14 @@ public:
 
 class de__log__stderr_test : public testing::Test
 {
-	std::streambuf * m_sbuf;
+	std::streambuf* m_sbuf;
 
 protected:
-
 	std::stringstream m_log;
 
 public:
-
 	de__log__stderr_test( )
-		: m_log { }
+		: m_log{}
 	{
 		/* Save std::cerr. */
 		m_sbuf = std::cerr.rdbuf( );
@@ -136,7 +129,7 @@ public:
 
 	void SetUp( )
 	{
-		de::log::start( "stderr" );
+		de::log::start( L"stderr" );
 	}
 
 	void TearDown( )
@@ -145,32 +138,32 @@ public:
 	}
 };
 
-TEST( de__log , sizeof_stream )
+TEST( de__log, sizeof_stream )
 {
-	EXPECT_EQ( 256 , sizeof( de::log::_stream ) );
+	EXPECT_EQ( 256, sizeof( de::log::_stream ) );
 }
 
-TEST( de_log , alignof_stream )
+TEST( de_log, alignof_stream )
 {
-	EXPECT_EQ( 256 , alignof( de::log::_stream ) );
+	EXPECT_EQ( 256, alignof( de::log::_stream ) );
 }
 
-TEST_F( de__log__test , not_started_info_does_not_throw )
+TEST_F( de__log__test_fixture, not_started_info_does_not_throw )
 {
 	EXPECT_NO_THROW( DE__LOG__INFO( "test" ) );
 }
 
-TEST_F( de__log__test , not_started_warning_does_not_throw )
+TEST_F( de__log__test_fixture, not_started_warning_does_not_throw )
 {
 	EXPECT_NO_THROW( DE__LOG__WARNING( "test" ) );
 }
 
-TEST_F( de__log__test , not_started_exception_does_not_throw )
+TEST_F( de__log__test_fixture, not_started_exception_does_not_throw )
 {
 	EXPECT_NO_THROW( DE__LOG__EXCEPTION( "test" ) );
 }
 
-TEST_F( de__log__test , start_stop_file_operations )
+TEST_F( de__log__test_fixture, start_stop_file_operations )
 {
 	std::fstream l_log;
 
@@ -179,117 +172,117 @@ TEST_F( de__log__test , start_stop_file_operations )
 	m_log.flush( );
 
 	/* Verify log file is not empty. */
-	l_log.open( m_logname , std::ios::in );
-	l_log.seekg( 0 , std::ios::end );
-	EXPECT_GT( l_log.tellg( ) , 0 );
+	l_log.open( m_logname, std::ios::in );
+	l_log.seekg( 0, std::ios::end );
+	EXPECT_GT( l_log.tellg( ), 0 );
 	l_log.close( );
 
 	/* Start log. */
-	EXPECT_NO_THROW(de::log::start( m_logname ));
+	EXPECT_NO_THROW( de::log::start( m_logname ) );
 
 	/* Verify log has been truncated. */
-	l_log.open( m_logname , std::ios::in );
-	l_log.seekg( 0 , std::ios::end );
-	EXPECT_EQ( l_log.tellg( ) , 0 );
+	l_log.open( m_logname, std::ios::in );
+	l_log.seekg( 0, std::ios::end );
+	EXPECT_EQ( l_log.tellg( ), 0 );
 	l_log.close( );
 
 	/* Stop log. */
 	EXPECT_NO_THROW( de::log::stop( ) );
 
 	/* Verify log contains stop text. */
-	std::string l_line;
+	std::string              l_line;
 	std::vector<std::string> l_line_vector;
 
-	l_log.open( m_logname , std::ios::in );
+	l_log.open( m_logname, std::ios::in );
 
-	while ( std::getline( l_log , l_line ) )
+	while ( std::getline( l_log, l_line ) )
 	{
 		l_line_vector.push_back( l_line );
 	}
 
-	EXPECT_EQ( l_line_vector.size( ) , 2 );
-	EXPECT_EQ( l_line_vector[ 0 ] , "" );
-	EXPECT_EQ( l_line_vector[ 1 ] , "Stream properly closed. END OF LOG." );
+	EXPECT_EQ( l_line_vector.size( ), 2 );
+	EXPECT_EQ( l_line_vector[ 0 ], "" );
+	EXPECT_EQ( l_line_vector[ 1 ], "Stream properly closed. END OF LOG." );
 }
 
-TEST_F( de__log__started_test , info_message )
+TEST_F( de__log__started_test, info_message )
 {
 	EXPECT_NO_THROW( DE__LOG__INFO( "info message" << std::endl ) );
 
-	std::string l_line;
+	std::string              l_line;
 	std::vector<std::string> l_line_vector;
 
-	while ( std::getline( m_log , l_line ) )
+	while ( std::getline( m_log, l_line ) )
 	{
 		l_line_vector.push_back( l_line );
 	}
 
-	EXPECT_EQ( l_line_vector.size( ) , 1 );
-	EXPECT_EQ( l_line_vector[ 0 ] , "info message" );
+	EXPECT_EQ( l_line_vector.size( ), 1 );
+	EXPECT_EQ( l_line_vector[ 0 ], "info message" );
 }
 
-TEST_F( de__log__started_test , warning_message )
+TEST_F( de__log__started_test, warning_message )
 {
 	EXPECT_NO_THROW( DE__LOG__WARNING( "warning message" << std::endl ) );
 
-	std::string l_line;
+	std::string              l_line;
 	std::vector<std::string> l_line_vector;
 
-	while ( std::getline( m_log , l_line ) )
+	while ( std::getline( m_log, l_line ) )
 	{
 		l_line_vector.push_back( l_line );
 	}
 
-	EXPECT_EQ( l_line_vector.size( ) , 1 );
-	EXPECT_EQ( l_line_vector[ 0 ] , "de__log__started_test_warning_message_Test::TestBody@233 | warning message" );
+	EXPECT_EQ( l_line_vector.size( ), 1 );
+	EXPECT_EQ( l_line_vector[ 0 ], "de__log__started_test_warning_message_Test::TestBody@226 | warning message" );
 }
 
-TEST_F( de__log__started_test , exception_message )
+TEST_F( de__log__started_test, exception_message )
 {
 	EXPECT_NO_THROW( DE__LOG__EXCEPTION( "exception message" << std::endl ) );
 
-	std::string l_line;
+	std::string              l_line;
 	std::vector<std::string> l_line_vector;
 
-	while ( std::getline( m_log , l_line ) )
+	while ( std::getline( m_log, l_line ) )
 	{
 		l_line_vector.push_back( l_line );
 	}
 
-	EXPECT_EQ( l_line_vector.size( ) , 1 );
-	EXPECT_EQ( l_line_vector[ 0 ] , "de__log__started_test_exception_message_Test::TestBody@249 | !EXCEPTION! | exception message" );
+	EXPECT_EQ( l_line_vector.size( ), 1 );
+	EXPECT_EQ( l_line_vector[ 0 ], "de__log__started_test_exception_message_Test::TestBody@242 | !EXCEPTION! | exception message" );
 }
 
-TEST_F( de__log__stdout_test , message )
+TEST_F( de__log__stdout_test, message )
 {
 	EXPECT_NO_THROW( DE__LOG__INFO( "message" << std::endl ) );
 
-	std::string l_line;
+	std::string              l_line;
 	std::vector<std::string> l_line_vector;
 
-	while ( std::getline( m_log , l_line ) )
+	while ( std::getline( m_log, l_line ) )
 	{
 		l_line_vector.push_back( l_line );
 	}
 
-	EXPECT_EQ( l_line_vector.size( ) , 1 );
-	EXPECT_EQ( l_line_vector[ 0 ] , "message" );
+	EXPECT_EQ( l_line_vector.size( ), 1 );
+	EXPECT_EQ( l_line_vector[ 0 ], "message" );
 }
 
-TEST_F( de__log__stderr_test , message )
+TEST_F( de__log__stderr_test, message )
 {
 	EXPECT_NO_THROW( DE__LOG__INFO( "message" << std::endl ) );
 
-	std::string l_line;
+	std::string              l_line;
 	std::vector<std::string> l_line_vector;
 
-	while ( std::getline( m_log , l_line ) )
+	while ( std::getline( m_log, l_line ) )
 	{
 		l_line_vector.push_back( l_line );
 	}
 
-	EXPECT_EQ( l_line_vector.size( ) , 1 );
-	EXPECT_EQ( l_line_vector[ 0 ] , "message" );
+	EXPECT_EQ( l_line_vector.size( ), 1 );
+	EXPECT_EQ( l_line_vector[ 0 ], "message" );
 }
 
 /* END */

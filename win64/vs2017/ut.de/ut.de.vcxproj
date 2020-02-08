@@ -109,7 +109,7 @@
       </PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderOutputFile />
@@ -131,7 +131,7 @@
       </PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderOutputFile />
@@ -155,7 +155,7 @@
       </PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderOutputFile />
@@ -181,7 +181,7 @@
       </PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderOutputFile />

@@ -7,12 +7,12 @@ namespace de
 {
 	namespace util
 	{
-		cstring_basic::cstring_basic( char p_buffer[] , std::uint32_t p_size ) noexcept
-			: m_last { p_size - 1u }
-			, m_end { 0u }
-			, m_buffer { p_buffer }
+		cstring_basic::cstring_basic( char p_buffer[], std::uint32_t p_size ) noexcept
+			: m_last{ p_size - 1u }
+			, m_end{ 0u }
+			, m_buffer{ p_buffer }
 		{
-			m_buffer[ 0 ] = 0;
+			m_buffer[ 0 ]      = 0;
 			m_buffer[ m_last ] = 0;
 		}
 
@@ -45,7 +45,7 @@ namespace de
 			}
 		}
 
-		void cstring_basic::append_cstring( const char * p_cstring ) noexcept
+		void cstring_basic::append_cstring( const char* p_cstring ) noexcept
 		{
 			if ( p_cstring != nullptr )
 			{
@@ -59,7 +59,7 @@ namespace de
 			}
 		}
 
-		template <typename T>
+		template<typename T>
 		void cstring_basic::append_decimal( const T p_value ) noexcept
 		{
 			if ( p_value == 0 )
@@ -72,13 +72,15 @@ namespace de
 
 				bool sign = functions<T>::is_negative( p_value );
 
-				if ( sign ) append_char( '-' );
+				if ( sign )
+					append_char( '-' );
 
-				for ( auto digit = constants<T>::digits10 ; digit > 0 ; --digit )
+				for ( auto digit = constants<T>::digits10; digit > 0; --digit )
 				{
 					T divisor = 1;
 
-					for ( auto i = 1 ; i < digit ; ++i ) divisor *= 10;
+					for ( auto i = 1; i < digit; ++i )
+						divisor *= 10;
 
 					T tmp = p_value;
 
@@ -112,10 +114,10 @@ namespace de
 		template void cstring_basic::append_decimal( const std::uint32_t p_value ) noexcept;
 		template void cstring_basic::append_decimal( const std::uint64_t p_value ) noexcept;
 
-		template <typename T>
+		template<typename T>
 		void cstring_basic::append_hexadecimal( const T p_value ) noexcept
 		{
-			for ( auto digit = constants<T>::digits16 ; digit > 0 ; --digit )
+			for ( auto digit = constants<T>::digits16; digit > 0; --digit )
 			{
 				T tmp = p_value;
 

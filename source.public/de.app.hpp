@@ -9,14 +9,14 @@ namespace de
 {
 	enum class window_mode
 	{
-		bordered ,
-		borderless ,
-		fullscreen ,
+		bordered,
+		borderless,
+		fullscreen,
 	};
 
 	struct app
 	{
-		std::string name { "default app name" };
+		std::wstring name{ L"default app name" };
 
 		de::version version;
 

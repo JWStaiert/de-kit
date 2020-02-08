@@ -1,10 +1,10 @@
 #pragma once
 /* Copyright (c) 2020 Jason William Staiert. All Rights Reserved. */
 
-#include <string>
+#include <filesystem>
 #include <vector>
 
-class de__os__module__test;
+class de__os__module__test_fixture;
 
 namespace de
 {
@@ -12,24 +12,22 @@ namespace de
 	{
 		class module
 		{
-			friend class de__os__module__test;
+			friend class de__os__module__test_fixture;
 
-			void * m_module;
+			void* m_module;
 
 		public:
-
 			module( ) = delete;
 
-			module( const std::string & p_pathname );
+			module( const std::filesystem::path& p_pathname );
 
-			module( const module & ) = delete;
+			module( const module& ) = delete;
 
 			~module( );
 
-			module & operator=( const module & ) = delete;
+			module& operator=( const module& ) = delete;
 
-			void * get_function_address( const std::string & p_name );
-
+			void* get_function_address( const std::string& p_name );
 		};
 	}
 }

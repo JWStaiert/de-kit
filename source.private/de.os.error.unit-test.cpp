@@ -1,71 +1,43 @@
 /* Copyright (c) 2020 Jason William Staiert. All Rights Reserved. */
 
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 #include "de.os.error.hpp"
 
-#include "de.log.unit-test.hpp"
+#include <unit-test.de.log.hpp>
 
-#include <string>
 #include <regex>
+#include <string>
 
-#include <windows.h>
+#include <Windows.h>
 
-class de__os__error__test : public de__log__test
-{
-public:
-
-	de__os__error__test( )
-		: de__log__test { }
-	{
-	}
-
-	~de__os__error__test( )
-	{
-	}
-
-	void SetUp( )
-	{
-		de__log__test::SetUp( );
-
-		de::log::start( "stdout" );
-	}
-
-	void TearDown( )
-	{
-		de::log::stop( );
-
-		de__log__test::TearDown( );
-	}
-};
-
-TEST( de__os__error , get_message_00000000 )
+TEST( de__os__error, get_message_00000000 )
 {
 	SetLastError( 0 );
 	EXPECT_EQ( std::string( de::os::error::get_message( ) ), "GetLastError(00000000)=[The operation completed successfully]" );
 }
 
-TEST( de__os__error , get_message_00000001 )
+TEST( de__os__error, get_message_00000001 )
 {
 	SetLastError( 1 );
-	EXPECT_EQ( std::string( de::os::error::get_message( ) ) , "GetLastError(00000001)=[Incorrect function]" );
+	EXPECT_EQ( std::string( de::os::error::get_message( ) ), "GetLastError(00000001)=[Incorrect function]" );
 }
 
-TEST( de__os__error , get_message_0000000A )
+TEST( de__os__error, get_message_0000000A )
 {
 	SetLastError( 0xA );
-	EXPECT_EQ( std::string( de::os::error::get_message( ) ) , "GetLastError(0000000A)=[The environment is incorrect]" );
+	EXPECT_EQ( std::string( de::os::error::get_message( ) ), "GetLastError(0000000A)=[The environment is incorrect]" );
 }
 
-TEST( de__os__error , get_message_FFFFFFF )
+TEST( de__os__error, get_message_FFFFFFF )
 {
 	SetLastError( 0xFFFFFFFF );
-	EXPECT_EQ( std::string( de::os::error::get_message( ) ) , "GetLastError(FFFFFFFF)=[FormatMessageA failed]" );
+	EXPECT_EQ( std::string( de::os::error::get_message( ) ), "GetLastError(FFFFFFFF)=[FormatMessageA failed]" );
 }
 
 enum class ATOM_result
 {
-	success ,
+	success,
 	failure
 };
 
@@ -81,7 +53,7 @@ static ATOM test_function_ATOM_rv( ATOM_result p_success )
 	return l_rv;
 }
 
-TEST( de__os__error , DE__OS__ERROR__CHECK__ATOM_rv__success )
+TEST( de__os__error, DE__OS__ERROR__CHECK__ATOM_rv__success )
 {
 	try
 	{
@@ -93,7 +65,7 @@ TEST( de__os__error , DE__OS__ERROR__CHECK__ATOM_rv__success )
 	}
 }
 
-TEST( de__os__error , DE__OS__ERROR__CHECK__ATOM_rv__failure )
+TEST( de__os__error, DE__OS__ERROR__CHECK__ATOM_rv__failure )
 {
 	try
 	{
@@ -102,11 +74,11 @@ TEST( de__os__error , DE__OS__ERROR__CHECK__ATOM_rv__failure )
 
 		FAIL( ) << "Expected exception.";
 	}
-	catch ( const std::runtime_error & exc )
+	catch ( const std::runtime_error& exc )
 	{
-		std::regex re { "de__os__error_DE__OS__ERROR__CHECK__ATOM_rv__failure_Test::TestBody@[0-9]+ \\| Condition indicates failure: 0 == test_function_ATOM_rv\\( ATOM_result::failure \\) \\| GetLastError\\(00000001\\)=\\[Incorrect function\\]" };
+		std::regex re{ "de__os__error_DE__OS__ERROR__CHECK__ATOM_rv__failure_Test::TestBody@[0-9]+ \\| Condition indicates failure: 0 == test_function_ATOM_rv\\( ATOM_result::failure \\) \\| GetLastError\\(00000001\\)=\\[Incorrect function\\]" };
 
-		EXPECT_TRUE( std::regex_match( exc.what( ) , re ) ) << exc.what( );
+		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
 	}
 	catch ( ... )
 	{
@@ -116,7 +88,7 @@ TEST( de__os__error , DE__OS__ERROR__CHECK__ATOM_rv__failure )
 
 enum class BOOL_result
 {
-	success ,
+	success,
 	failure
 };
 
@@ -132,7 +104,7 @@ static BOOL test_function_BOOL_rv( BOOL_result p_success )
 	return l_rv;
 }
 
-TEST( de__os__error , DE__OS__ERROR__CHECK__BOOL_rv__success )
+TEST( de__os__error, DE__OS__ERROR__CHECK__BOOL_rv__success )
 {
 	try
 	{
@@ -144,7 +116,7 @@ TEST( de__os__error , DE__OS__ERROR__CHECK__BOOL_rv__success )
 	}
 }
 
-TEST( de__os__error , DE__OS__ERROR__CHECK__BOOL_rv__failure )
+TEST( de__os__error, DE__OS__ERROR__CHECK__BOOL_rv__failure )
 {
 	try
 	{
@@ -153,11 +125,11 @@ TEST( de__os__error , DE__OS__ERROR__CHECK__BOOL_rv__failure )
 
 		FAIL( ) << "Expected exception.";
 	}
-	catch ( const std::runtime_error & exc )
+	catch ( const std::runtime_error& exc )
 	{
-		std::regex re { "de__os__error_DE__OS__ERROR__CHECK__BOOL_rv__failure_Test::TestBody@[0-9]+ \\| Condition indicates failure: 0 == test_function_BOOL_rv\\( BOOL_result::failure \\) \\| GetLastError\\(00000001\\)=\\[Incorrect function\\]" };
+		std::regex re{ "de__os__error_DE__OS__ERROR__CHECK__BOOL_rv__failure_Test::TestBody@[0-9]+ \\| Condition indicates failure: 0 == test_function_BOOL_rv\\( BOOL_result::failure \\) \\| GetLastError\\(00000001\\)=\\[Incorrect function\\]" };
 
-		EXPECT_TRUE( std::regex_match( exc.what( ) , re ) ) << exc.what( );
+		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
 	}
 	catch ( ... )
 	{
@@ -167,7 +139,7 @@ TEST( de__os__error , DE__OS__ERROR__CHECK__BOOL_rv__failure )
 
 enum class HRESULT_result
 {
-	success ,
+	success,
 	failure
 };
 
@@ -183,7 +155,7 @@ static HRESULT test_function_HRESULT_rv( HRESULT_result p_success )
 	return l_rv;
 }
 
-TEST( de__os__error , DE__OS__ERROR__CHECK__HRESULT_rv__success )
+TEST( de__os__error, DE__OS__ERROR__CHECK__HRESULT_rv__success )
 {
 	try
 	{
@@ -195,7 +167,7 @@ TEST( de__os__error , DE__OS__ERROR__CHECK__HRESULT_rv__success )
 	}
 }
 
-TEST( de__os__error , DE__OS__ERROR__CHECK__HRESULT_rv__failure )
+TEST( de__os__error, DE__OS__ERROR__CHECK__HRESULT_rv__failure )
 {
 	try
 	{
@@ -204,11 +176,11 @@ TEST( de__os__error , DE__OS__ERROR__CHECK__HRESULT_rv__failure )
 
 		FAIL( ) << "Expected exception.";
 	}
-	catch ( const std::runtime_error & exc )
+	catch ( const std::runtime_error& exc )
 	{
-		std::regex re { "de__os__error_DE__OS__ERROR__CHECK__HRESULT_rv__failure_Test::TestBody@[0-9]+ \\| Condition indicates failure: \\(\\(HRESULT\\)0L\\) != test_function_HRESULT_rv\\( HRESULT_result::failure \\) \\| GetLastError\\(00000001\\)=\\[Incorrect function\\]" };
+		std::regex re{ "de__os__error_DE__OS__ERROR__CHECK__HRESULT_rv__failure_Test::TestBody@[0-9]+ \\| Condition indicates failure: \\(\\(HRESULT\\)0L\\) != test_function_HRESULT_rv\\( HRESULT_result::failure \\) \\| GetLastError\\(00000001\\)=\\[Incorrect function\\]" };
 
-		EXPECT_TRUE( std::regex_match( exc.what( ) , re ) ) << exc.what( );
+		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
 	}
 	catch ( ... )
 	{
@@ -216,27 +188,54 @@ TEST( de__os__error , DE__OS__ERROR__CHECK__HRESULT_rv__failure )
 	}
 }
 
-TEST_F( de__os__error__test , DE__OS__ERROR__LOG_success )
+class de__os__error__test_fixture : public de__log__test_fixture
+{
+public:
+	de__os__error__test_fixture( )
+		: de__log__test_fixture{}
+	{
+	}
+
+	~de__os__error__test_fixture( )
+	{
+	}
+
+	void SetUp( )
+	{
+		de__log__test_fixture::SetUp( );
+
+		de::log::start( "stdout" );
+	}
+
+	void TearDown( )
+	{
+		de::log::stop( );
+
+		de__log__test_fixture::TearDown( );
+	}
+};
+
+TEST_F( de__os__error__test_fixture, DE__OS__ERROR__LOG_success )
 {
 	DE__OS__ERROR__LOG( 0 == test_function_ATOM_rv( ATOM_result::success ) );
 
 	ProcessLog( );
 
-	EXPECT_EQ( m_log_lines.size( ) , 0 );
+	EXPECT_EQ( m_log_lines.size( ), 0 );
 }
 
-TEST_F( de__os__error__test , DE__OS__ERROR__LOG_failure )
+TEST_F( de__os__error__test_fixture, DE__OS__ERROR__LOG_failure )
 {
 	SetLastError( 0xAF );
 	DE__OS__ERROR__LOG( 0 == test_function_ATOM_rv( ATOM_result::failure ) );
 
 	ProcessLog( );
 
-	EXPECT_EQ( m_log_lines.size( ) , 1 );
+	EXPECT_EQ( m_log_lines.size( ), 1 );
 
-	std::regex re { "de__os__error__test_DE__OS__ERROR__LOG_failure_Test::TestBody@[0-9]+ \\| !EXCEPTION! \\| Program violates condition: 0 == test_function_ATOM_rv\\( ATOM_result::failure \\) \\| GetLastError\\(000000AF\\)=\\[FormatMessageA failed\\]" };
+	std::regex re{ "de__os__error__test_fixture_DE__OS__ERROR__LOG_failure_Test::TestBody@[0-9]+ \\| !EXCEPTION! \\| Program violates condition: 0 == test_function_ATOM_rv\\( ATOM_result::failure \\) \\| GetLastError\\(000000AF\\)=\\[FormatMessageA failed\\]" };
 
-	EXPECT_TRUE( std::regex_match( m_log_lines[ 0 ] , re ) ) << m_log_lines[ 0 ];
+	EXPECT_TRUE( std::regex_match( m_log_lines[ 0 ], re ) ) << m_log_lines[ 0 ];
 
 	ClearLog( );
 }

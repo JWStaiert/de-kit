@@ -32,6 +32,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\source.private\de.os.error.unit-test.cpp" />
     <ClCompile Include="..\..\..\source.private\de.os.module.unit-test.cpp" />
+    <ClCompile Include="..\..\..\source.private\de.os.string.unit-test.cpp" />
     <ClCompile Include="..\..\..\source.private\de.os.window.unit-test.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -108,9 +109,9 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest;$(ProjectDir)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderOutputFile />
@@ -130,9 +131,9 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest;$(ProjectDir)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderOutputFile />
@@ -154,9 +155,9 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest;$(ProjectDir)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderOutputFile />
@@ -180,9 +181,9 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest;$(ProjectDir)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderOutputFile />

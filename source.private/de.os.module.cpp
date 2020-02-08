@@ -2,7 +2,7 @@
 
 #include "de.os.module.hpp"
 
-#include "de.os.error.hpp"
+#include <de.os.error.hpp>
 
 #include <Windows.h>
 
@@ -11,14 +11,14 @@ namespace de
 	namespace os
 	{
 		/* */
-		module::module( const std::string & p_pathname )
-			: m_module { nullptr }
+		module::module( const std::filesystem::path& p_pathname )
+			: m_module{ nullptr }
 		{
-			HMODULE l_module = LoadLibraryA( p_pathname.c_str( ) );
+			HMODULE l_module = LoadLibraryW( p_pathname.c_str( ) );
 
 			DE__OS__ERROR__CHECK( l_module == NULL );
 
-			m_module = static_cast<void *>( l_module );
+			m_module = static_cast<void*>( l_module );
 		}
 
 		/* */
@@ -30,15 +30,15 @@ namespace de
 		}
 
 		/* */
-		void * module::get_function_address( const std::string & p_name )
+		void* module::get_function_address( const std::string& p_name )
 		{
 			HMODULE l_module = static_cast<HMODULE>( m_module );
 
-			FARPROC l_proc = GetProcAddress( l_module , p_name.c_str( ) );
+			FARPROC l_proc = GetProcAddress( l_module, p_name.c_str( ) );
 
 			DE__OS__ERROR__CHECK( l_proc == NULL );
 
-			return static_cast<void *>( l_proc );
+			return static_cast<void*>( l_proc );
 		}
 	}
 }
