@@ -1,10 +1,11 @@
 #pragma once
 /* Copyright (c) 2020 Jason William Staiert. All Rights Reserved. */
 
-#include "de.version.hpp"
+#include <de.version.hpp>
 
-#include "de.os.module.hpp"
+#include <de.os.module.hpp>
 
+#include <filesystem>
 #include <set>
 #include <string>
 #include <vector>
@@ -29,7 +30,7 @@ namespace de
 			de::version spec_version;
 			de::version implementation_version;
 			std::string description;
-			extensions extensions;
+			extensions  extensions;
 		};
 
 		using layers = std::vector<layer>;
@@ -55,25 +56,32 @@ namespace de
 			void enumerate_extension_properties( );
 
 		public:
-
 			loader( ) = delete;
 
-			loader( const std::string & p_loader_dll_path );
+			loader( const std::filesystem::path& p_loader_dll_path );
 
-			loader( const loader & ) = delete;
+			loader( const loader& ) = delete;
 
 			~loader( ) = default;
 
-			loader & operator=( const loader & ) = delete;
+			loader& operator=( const loader& ) = delete;
 
-			const de::version api_version( ) const noexcept { return m_api_version; }
+			const de::version api_version( ) const noexcept
+			{
+				return m_api_version;
+			}
 
-			const layers & layers( ) const noexcept { return m_layers; }
+			const layers& layers( ) const noexcept
+			{
+				return m_layers;
+			}
 
-			const extensions & extensions( ) const noexcept { return m_extensions; }
+			const extensions& extensions( ) const noexcept
+			{
+				return m_extensions;
+			}
 
-			void * get_function_address( const char * p_function_name ) const;
-
+			void* get_function_address( const char* p_function_name ) const;
 		};
 	}
 }

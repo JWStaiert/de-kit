@@ -1,9 +1,9 @@
 #pragma once
 /* Copyright (c) 2020 Jason William Staiert. All Rights Reserved. */
 
-#include "de.version.hpp"
-
-#include "de.vk.util.hpp"
+#include <de.version.hpp>
+#include <de.vk.loader.hpp>
+#include <de.vk.util.hpp>
 
 #include <string>
 #include <vector>
@@ -12,17 +12,17 @@ namespace de
 {
 	namespace vk
 	{
-		using layer_names = std::vector< std::string >;
+		using layer_names = std::vector<std::string>;
 
-		using extension_names = std::vector< std::string >;
+		using extension_names = std::vector<std::string>;
 
 		struct instance_configuration
 		{
-			std::string application_name    { "default application name" };
-			version application_version     { 0 , 0 , 1 };
-			layer_names layer_names         { };
-			extension_names extension_names { };
-			version api_version             { 1 , 0 , 0 };
+			std::string     application_name{ "default application name" };
+			version         application_version{ 0, 0, 1 };
+			layer_names     layer_names{};
+			extension_names extension_names{};
+			version         api_version{ 1, 0, 0 };
 		};
 
 		struct extent
@@ -74,21 +74,21 @@ namespace de
 
 		struct physical_device
 		{
-			std::string name;
-			de::version api_version;
-			de::version driver_version;
-			memory_heaps memory_heaps;
+			std::string    name;
+			de::version    api_version;
+			de::version    driver_version;
+			memory_heaps   memory_heaps;
 			queue_families queue_families;
-			void * handle;
+			layers         layers;
+			extensions     extensions;
+			void*          handle;
 		};
-		
-		using physical_devices = std::vector< physical_device >;
 
-		class loader;
+		using physical_devices = std::vector<physical_device>;
 
 		class instance
 		{
-			const loader & m_loader;
+			const loader& m_loader;
 
 			instance_configuration m_configuration;
 
@@ -108,23 +108,40 @@ namespace de
 
 			void enumerate_physical_devices( );
 
-		public:
+			void get_physical_device_properties( );
 
+			void get_physical_device_features( );
+
+			void get_physical_device_memory_properties( );
+
+			void get_physical_device_queue_properties( );
+
+			void enumerate_physical_device_layer_properties( );
+
+			void enumerate_physical_device_extension_properties( );
+
+		public:
 			instance( ) = delete;
 
-			instance( const loader & , const instance_configuration & );
+			instance( const loader&, const instance_configuration& );
 
-			instance( const instance & ) = delete;
+			instance( const instance& ) = delete;
 
 			~instance( ) = default;
 
-			instance & operator=( const instance & ) = delete;
+			instance& operator=( const instance& ) = delete;
 
-			const instance_configuration & configuration( ) const noexcept { return m_configuration; }
+			const instance_configuration& configuration( ) const noexcept
+			{
+				return m_configuration;
+			}
 
-			const physical_devices & physical_devices( ) const noexcept { return m_physical_devices; }
+			const physical_devices& physical_devices( ) const noexcept
+			{
+				return m_physical_devices;
+			}
 
-			void * get_function_address( const char * p_function_name ) const;
+			void* get_function_address( const char* p_function_name ) const;
 		};
 	}
 }

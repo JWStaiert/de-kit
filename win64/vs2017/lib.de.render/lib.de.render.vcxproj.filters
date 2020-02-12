@@ -11,30 +11,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\source.public\de.vk.loader.hpp">
+    <ClInclude Include="..\..\..\source.public\de.render.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source.public\de.vk.error.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source.public\de.vk.util.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source.private\de.unit-test.hpp">
+    <ClInclude Include="..\..\..\source.private\de.vk.device.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source.private\de.log.unit-test.hpp">
+    <ClInclude Include="..\..\..\source.private\de.vk.error.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source.private\de.vk.instance.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source.private\de.vk.loader.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source.private\de.vk.loader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source.private\de.vk.loader.unit-test.cpp">
+    <ClCompile Include="..\..\..\source.private\de.vk.device.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source.private\de.vk.error.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source.private\de.vk.instance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source.private\de.vk.loader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

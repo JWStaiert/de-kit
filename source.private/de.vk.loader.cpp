@@ -1,13 +1,14 @@
 /* Copyright (c) 2020 Jason William Staiert. All Rights Reserved. */
 
 #include "de.vk.loader.hpp"
-#include "de.vk.error.hpp"
-#include "de.vk.util.hpp"
 
-#include "de.exception.hpp"
-#include "de.util.hpp"
+#include <de.exception.hpp>
+#include <de.util.hpp>
 
-#include "de.os.module.hpp"
+#include <de.os.module.hpp>
+
+#include <de.vk.error.hpp>
+#include <de.vk.util.hpp>
 
 #include <algorithm>
 #include <sstream>
@@ -29,7 +30,7 @@ namespace de
 		/* */
 		void loader::enumerate_api_version( )
 		{
-			DE__VK__FUNCTION_LOAD( vkEnumerateInstanceVersion , get_function_address );
+			DE__VK__FUNCTION_LOAD( vkEnumerateInstanceVersion, get_function_address );
 
 			std::uint32_t l_api_version = 0;
 
@@ -41,20 +42,20 @@ namespace de
 		/* */
 		void loader::enumerate_layer_properties( )
 		{
-			DE__VK__FUNCTION_LOAD( vkEnumerateInstanceLayerProperties , get_function_address );
+			DE__VK__FUNCTION_LOAD( vkEnumerateInstanceLayerProperties, get_function_address );
 
-			std::uint32_t l_layers_count = 0u;
+			std::uint32_t                  l_layers_count = 0u;
 			std::vector<VkLayerProperties> l_layers_properties;
 
-			DE__VK__ERROR__CHECK_RESULT( vkEnumerateInstanceLayerProperties( &l_layers_count , nullptr ) );
+			DE__VK__ERROR__CHECK_RESULT( vkEnumerateInstanceLayerProperties( &l_layers_count, nullptr ) );
 
 			l_layers_properties.resize( l_layers_count );
 
-			DE__VK__ERROR__CHECK_RESULT( vkEnumerateInstanceLayerProperties( &l_layers_count , &l_layers_properties[ 0 ] ) );
+			DE__VK__ERROR__CHECK_RESULT( vkEnumerateInstanceLayerProperties( &l_layers_count, &l_layers_properties[ 0 ] ) );
 
 			m_layers.resize( l_layers_count );
 
-			for ( auto i = 0u ; i < l_layers_count ; ++i )
+			for ( auto i = 0u; i < l_layers_count; ++i )
 			{
 				m_layers[ i ].name = l_layers_properties[ i ].layerName;
 
@@ -69,24 +70,24 @@ namespace de
 		/* */
 		void loader::enumerate_extension_properties( )
 		{
-			DE__VK__FUNCTION_LOAD( vkEnumerateInstanceExtensionProperties , get_function_address );
+			DE__VK__FUNCTION_LOAD( vkEnumerateInstanceExtensionProperties, get_function_address );
 
 			/* Enumerate global extensions. */
 			{
-				std::uint32_t l_extension_count = 0u;
+				std::uint32_t                      l_extension_count = 0u;
 				std::vector<VkExtensionProperties> l_extension_properties;
 
-				DE__VK__ERROR__CHECK_RESULT( vkEnumerateInstanceExtensionProperties( nullptr , &l_extension_count , nullptr ) );
+				DE__VK__ERROR__CHECK_RESULT( vkEnumerateInstanceExtensionProperties( nullptr, &l_extension_count, nullptr ) );
 
 				l_extension_properties.resize( l_extension_count );
 
 				if ( l_extension_count > 0 )
 				{
-					DE__VK__ERROR__CHECK_RESULT( vkEnumerateInstanceExtensionProperties( nullptr , &l_extension_count , l_extension_properties.data( ) ) );
+					DE__VK__ERROR__CHECK_RESULT( vkEnumerateInstanceExtensionProperties( nullptr, &l_extension_count, l_extension_properties.data( ) ) );
 
 					m_extensions.resize( l_extension_count );
 
-					for ( auto i = 0u ; i < l_extension_count ; ++i )
+					for ( auto i = 0u; i < l_extension_count; ++i )
 					{
 						m_extensions[ i ].name = l_extension_properties[ i ].extensionName;
 
@@ -96,22 +97,22 @@ namespace de
 			}
 
 			/* Enumerate layer extensions. */
-			for ( auto i = 0u ; i < m_layers.size( ) ; ++i )
+			for ( auto i = 0u; i < m_layers.size( ); ++i )
 			{
-				std::uint32_t l_extension_count = 0u;
+				std::uint32_t                      l_extension_count = 0u;
 				std::vector<VkExtensionProperties> l_extension_properties;
 
-				DE__VK__ERROR__CHECK_RESULT( vkEnumerateInstanceExtensionProperties( m_layers[ i ].name.c_str( ) , &l_extension_count , nullptr ) );
+				DE__VK__ERROR__CHECK_RESULT( vkEnumerateInstanceExtensionProperties( m_layers[ i ].name.c_str( ), &l_extension_count, nullptr ) );
 
 				l_extension_properties.resize( l_extension_count );
 
 				if ( l_extension_count > 0 )
 				{
-					DE__VK__ERROR__CHECK_RESULT( vkEnumerateInstanceExtensionProperties( m_layers[ 0 ].name.c_str( ) , &l_extension_count , l_extension_properties.data( ) ) );
+					DE__VK__ERROR__CHECK_RESULT( vkEnumerateInstanceExtensionProperties( m_layers[ 0 ].name.c_str( ), &l_extension_count, l_extension_properties.data( ) ) );
 
 					m_layers[ i ].extensions.resize( l_extension_count );
 
-					for ( auto j = 0u ; j < l_extension_count ; ++j )
+					for ( auto j = 0u; j < l_extension_count; ++j )
 					{
 						m_layers[ i ].extensions[ j ].name = l_extension_properties[ j ].extensionName;
 
@@ -122,13 +123,13 @@ namespace de
 		}
 
 		/* */
-		loader::loader( const std::string & p_loader_dll_path )
-			: m_module                 { p_loader_dll_path }
-			, m_api_version            { 0 }
-			, m_layers                 { }
-			, m_extensions             { }
+		loader::loader( const std::filesystem::path& p_loader_dll_path )
+			: m_module{ p_loader_dll_path }
+			, m_api_version{ 0 }
+			, m_layers{}
+			, m_extensions{}
 		{
-			DE__VK__FUNCTION_LOAD( vkGetInstanceProcAddr , m_module.get_function_address );
+			DE__VK__FUNCTION_LOAD( vkGetInstanceProcAddr, m_module.get_function_address );
 
 			enumerate_api_version( );
 
@@ -138,9 +139,9 @@ namespace de
 		}
 
 		/* */
-		void * loader::get_function_address( const char * p_function_name ) const
+		void* loader::get_function_address( const char* p_function_name ) const
 		{
-			DE__VK__ERROR__CHECK_AND_RETURN( void * , vkGetInstanceProcAddr( nullptr , p_function_name ) , nullptr , p_function_name );
+			DE__VK__ERROR__CHECK_AND_RETURN( void*, vkGetInstanceProcAddr( nullptr, p_function_name ), nullptr, p_function_name );
 		}
 	}
 }

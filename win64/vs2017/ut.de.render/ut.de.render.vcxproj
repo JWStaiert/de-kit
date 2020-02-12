@@ -19,8 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\dll.de.vk.mock\dll.de.vk.mock.vcxproj">
-      <Project>{802b7dc0-5886-4ffb-8be5-ee9a93a247fc}</Project>
+    <ProjectReference Include="..\lib.de.os\lib.de.os.vcxproj">
+      <Project>{a58e4c85-e2e3-4df8-a66e-fe758865d3f2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\lib.de.render\lib.de.render.vcxproj">
+      <Project>{f2434bad-2f23-45e4-a093-77ef0c26bab7}</Project>
     </ProjectReference>
     <ProjectReference Include="..\lib.de\lib.de.vcxproj">
       <Project>{8dc6f2c9-dd77-4915-b7a3-a5ce45aee430}</Project>
@@ -30,24 +33,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source.private\de.vk.error.cpp" />
-    <ClCompile Include="..\..\..\source.private\de.vk.instance.cpp" />
+    <ClCompile Include="..\..\..\source.private\de.render.unit-test.cpp" />
+    <ClCompile Include="..\..\..\source.private\de.vk.device.unit-test.cpp" />
+    <ClCompile Include="..\..\..\source.private\de.vk.error.unit-test.cpp" />
     <ClCompile Include="..\..\..\source.private\de.vk.instance.unit-test.cpp" />
-    <ClCompile Include="..\..\..\source.private\de.vk.loader.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\source.private\de.log.unit-test.hpp" />
-    <ClInclude Include="..\..\..\source.private\de.unit-test.hpp" />
-    <ClInclude Include="..\..\..\source.public\de.vk.error.hpp" />
-    <ClInclude Include="..\..\..\source.public\de.vk.instance.hpp" />
-    <ClInclude Include="..\..\..\source.public\de.vk.loader.hpp" />
-    <ClInclude Include="..\..\..\source.public\de.vk.util.hpp" />
+    <ClCompile Include="..\..\..\source.private\de.vk.loader.unit-test.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{C0A8CF57-29AC-42C6-8CAA-A9013E7D6BB9}</ProjectGuid>
+    <ProjectGuid>{80312995-772B-4362-A3A0-8EEC8FA7F5AD}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>utdevkinstance</RootNamespace>
+    <RootNamespace>utderender</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -117,9 +113,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private;$(SolutionDir)/../targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest;$(ProjectDir)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderOutputFile />
@@ -139,9 +134,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private;$(SolutionDir)/../targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest;$(ProjectDir)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderOutputFile />
@@ -163,9 +157,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private;$(SolutionDir)/../targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest;$(ProjectDir)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderOutputFile />
@@ -189,9 +182,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../win64/targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private;$(SolutionDir)/../targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest;$(ProjectDir)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderOutputFile />

@@ -16,10 +16,18 @@ TEST( de__os__string, UTF8_to_UTF16 )
 	{
 		std::wstring l_converted_str = de::os::string::UTF8_to_UTF16( UTF8_TEST_STRINGS[ i ] );
 
+		EXPECT_EQ( l_converted_str.size( ), UTF16_TEST_STRINGS[ i ].size( ) );
+		EXPECT_EQ( std::wcslen( l_converted_str.c_str( ) ) , 94 );
+		EXPECT_EQ( l_converted_str[ 93 ], L'"' );
+		EXPECT_EQ( l_converted_str[ 94 ], 0 );
 		EXPECT_EQ( l_converted_str, UTF16_TEST_STRINGS[ i ] );
 
 		std::string l_re_converted_str = de::os::string::UTF16_to_UTF8( l_converted_str );
 
+		EXPECT_EQ( l_re_converted_str.size( ), UTF8_TEST_STRINGS[ i ].size( ) );
+		EXPECT_EQ( std::strlen( l_re_converted_str.c_str( ) ), 94 );
+		EXPECT_EQ( l_re_converted_str[ 93 ], '"' );
+		EXPECT_EQ( l_re_converted_str[ 94 ], 0 );
 		EXPECT_EQ( l_re_converted_str, UTF8_TEST_STRINGS[ i ] );
 	}
 }
@@ -30,10 +38,18 @@ TEST( de__os__string, UTF16_to_UTF8 )
 	{
 		std::string l_converted_str = de::os::string::UTF16_to_UTF8( UTF16_TEST_STRINGS[ i ] );
 
+		EXPECT_EQ( l_converted_str.size( ), UTF8_TEST_STRINGS[ i ].size( ) );
+		EXPECT_EQ( std::strlen( l_converted_str.c_str( ) ), 94 );
+		EXPECT_EQ( l_converted_str[ 93 ], L'"' );
+		EXPECT_EQ( l_converted_str[ 94 ], 0 );
 		EXPECT_EQ( l_converted_str, UTF8_TEST_STRINGS[ i ] );
 
 		std::wstring l_re_converted_str = de::os::string::UTF8_to_UTF16( l_converted_str );
 
+		EXPECT_EQ( l_re_converted_str.size( ), UTF16_TEST_STRINGS[ i ].size( ) );
+		EXPECT_EQ( std::wcslen( l_re_converted_str.c_str( ) ), 94 );
+		EXPECT_EQ( l_re_converted_str[ 93 ], L'"' );
+		EXPECT_EQ( l_re_converted_str[ 94 ], 0 );
 		EXPECT_EQ( l_re_converted_str, UTF16_TEST_STRINGS[ i ] );
 	}
 }

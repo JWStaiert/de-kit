@@ -2,28 +2,28 @@
 
 #include "de.vk.error.hpp"
 
-#include "de.util.hpp"
+#include <de.util.hpp>
 
 #include <vulkan/vulkan.h>
 
-#if (VK_ERROR_OUT_OF_POOL_MEMORY_KHR != VK_ERROR_OUT_OF_POOL_MEMORY)
-#error "Need unique string for value VK_ERROR_OUT_OF_POOL_MEMORY_KHR in enum VkStatus."
+#if ( VK_ERROR_OUT_OF_POOL_MEMORY_KHR != VK_ERROR_OUT_OF_POOL_MEMORY )
+#	error "Need unique string for value VK_ERROR_OUT_OF_POOL_MEMORY_KHR in enum VkStatus."
 #endif
 
-#if (VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR != VK_ERROR_INVALID_EXTERNAL_HANDLE)
-#error "Need unique string for value VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR in enum VkStatus."
+#if ( VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR != VK_ERROR_INVALID_EXTERNAL_HANDLE )
+#	error "Need unique string for value VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR in enum VkStatus."
 #endif
 
-#if (VK_ERROR_INVALID_DEVICE_ADDRESS_EXT != VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR)
-#error "Need unique string for value VK_ERROR_INVALID_DEVICE_ADDRESS_EXT in enum VkStatus."
+#if ( VK_ERROR_INVALID_DEVICE_ADDRESS_EXT != VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR )
+#	error "Need unique string for value VK_ERROR_INVALID_DEVICE_ADDRESS_EXT in enum VkStatus."
 #endif
 
-#if (VK_RESULT_BEGIN_RANGE != VK_ERROR_FRAGMENTED_POOL)
-#error "Need unique strings for new error values in enum VkStatus."
+#if ( VK_RESULT_BEGIN_RANGE != VK_ERROR_FRAGMENTED_POOL )
+#	error "Need unique strings for new error values in enum VkStatus."
 #endif
 
-#if (VK_RESULT_END_RANGE != VK_INCOMPLETE)
-#error "Need unique strings for new status values in enum VkStatus."
+#if ( VK_RESULT_END_RANGE != VK_INCOMPLETE )
+#	error "Need unique strings for new status values in enum VkStatus."
 #endif
 
 namespace de
@@ -37,7 +37,7 @@ namespace de
 
 		namespace error
 		{
-			const char * format_result( VkResult p_result )
+			const char* format_result( VkResult p_result )
 			{
 				s_buffer.reset( );
 				s_buffer.append_cstring( "vk_result = " );
@@ -150,7 +150,7 @@ namespace de
 				return s_buffer;
 			}
 
-			const char * format_parameter( const char * p_parameter , const char * p_value )
+			const char* format_parameter( const char* p_parameter, const char* p_value )
 			{
 				s_buffer.reset( );
 				s_buffer.append_cstring( p_parameter );

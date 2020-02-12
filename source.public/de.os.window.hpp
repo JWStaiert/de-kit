@@ -101,6 +101,8 @@ namespace de
 
 			window_size m_size;
 
+			void initialize_diagnostics( );
+
 			void create_class( void* );
 
 			void create_window( void*, const window_properties& );
@@ -110,13 +112,19 @@ namespace de
 			static const wchar_t* CLASS_NAME;
 
 		public:
+			//window( ) = delete;
+
 			window( const window_properties& = {} );
 
 			window( const window& ) = delete;
 
+			window( window&& ) = delete;
+
 			~window( ) noexcept = default;
 
 			window& operator=( const window& ) = delete;
+
+			window& operator=( window&& ) = delete;
 
 			window_state state( ) const noexcept
 			{

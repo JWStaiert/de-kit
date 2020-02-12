@@ -136,4 +136,70 @@ TEST_F( de__os__module__test_fixture, _get_function_address_success )
 	} );
 }
 
+#if 0
+// JWS: new/delete testing. This belongs in a new/delete test.
+TEST( de__os__module, operator_new )
+{
+	try
+	{
+		/* new */
+		de::os::module* uut_new = new de::os::module{ DE_TEST_MODULE_PATHNAME };
+
+		delete uut_new;
+
+		/* new array */
+		de::os::module* uut_new_array = new de::os::module[ 4 ]{ { DE_TEST_MODULE_PATHNAME }, { DE_TEST_MODULE_PATHNAME }, { DE_TEST_MODULE_PATHNAME }, { DE_TEST_MODULE_PATHNAME } };
+
+		delete[] uut_new_array;
+
+		/* no throw new */
+		de::os::module* uut_new_no_throw = new ( std::nothrow ) de::os::module{ DE_TEST_MODULE_PATHNAME };
+
+		delete uut_new_no_throw;
+
+		/* no throw new array */
+		de::os::module* uut_new_no_throw_array = new ( std::nothrow ) de::os::module[ 4 ]{ { DE_TEST_MODULE_PATHNAME }, { DE_TEST_MODULE_PATHNAME }, { DE_TEST_MODULE_PATHNAME }, { DE_TEST_MODULE_PATHNAME } };
+
+		delete[] uut_new_no_throw_array;
+
+		/* placement new */
+		alignas( de::os::module ) std::uint8_t uut_new_placement_memory[ sizeof( de::os::module ) ];
+
+		de::os::module* uut_new_placement = new ( uut_new_placement_memory ) de::os::module{ DE_TEST_MODULE_PATHNAME };
+
+		uut_new_placement->~module( );
+
+		/* placement new array */
+		alignas( de::os::module[4] ) std::uint8_t uut_new_placement_array_memory[ sizeof( de::os::module ) * 4 ];
+
+		// JWS: Placement array new adds overhead, two bytes on my development system. This causes the line below to overrun
+		// uut_new_placement_array_memory and thus corrupt the stack. Overhead added by array new operators is allowed by
+		// the standard but is not specified, so there isn't a portable (or even future proof) way of sizing
+		// uut_new_placement_array_memory. If placement array new is needed, then it will be necessary to override placement
+		// array new and placement array delete to guarantee overhead byte count. Note: the overheadd bytes may be used by
+		// array new implementations to record the number of elements in the array that have had their constructors called,
+		// which allows delete to call the destructor only on those elements that have been constructed in situations where
+		// explicit destructor calls are not possible (as when array new encounters an exception.)
+		de::os::module* uut_new_placement_array = new ( uut_new_placement_array_memory ) de::os::module[ 4 ]{ { DE_TEST_MODULE_PATHNAME }, { DE_TEST_MODULE_PATHNAME }, { DE_TEST_MODULE_PATHNAME }, { DE_TEST_MODULE_PATHNAME } };
+
+		EXPECT_EQ( static_cast<void*>( uut_new_placement_array_memory ), static_cast<void*>( uut_new_placement_array ) ); // JWS: This fails.
+
+		uut_new_placement_array[ 0 ].~module( );
+		uut_new_placement_array[ 1 ].~module( );
+		uut_new_placement_array[ 2 ].~module( );
+		uut_new_placement_array[ 3 ].~module( );
+
+		SUCCEED( );
+	}
+	catch ( std::exception& exc )
+	{
+		FAIL( ) << exc.what( );
+	}
+	catch ( ... )
+	{
+		FAIL( ) << "Unexpected exception.";
+	}
+}
+#endif
+
 /* END */

@@ -66,7 +66,7 @@ namespace de
 				}
 				break;
 			case WM_SHOWWINDOW:
-				process_show_message( l_window_ptr , ( ( p_wparam == TRUE ) ? window_state::visible : window_state::open ) );
+				process_show_message( l_window_ptr, ( ( p_wparam == TRUE ) ? window_state::visible : window_state::open ) );
 				break;
 			case WM_CLOSE:
 				process_close_message( l_window_ptr );
@@ -77,6 +77,11 @@ namespace de
 			}
 
 			return l_rv;
+		}
+
+		void window::initialize_diagnostics( )
+		{
+			_CrtSetDbgFlag( ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_CHECK_ALWAYS_DF | _CRTDBG_DELAY_FREE_MEM_DF | _CRTDBG_LEAK_CHECK_DF ) );
 		}
 
 		static void class_deleter( std::uint16_t p_class ) noexcept
@@ -234,6 +239,8 @@ namespace de
 			, m_size{}
 		{
 			HMODULE l_hinstance = GetModuleHandleW( NULL );
+
+			initialize_diagnostics( );
 
 			create_class( l_hinstance );
 
