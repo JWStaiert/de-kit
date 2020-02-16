@@ -8,7 +8,7 @@
 #include <de.os.module.hpp>
 
 #include <de.vk.error.hpp>
-#include <de.vk.util.hpp>
+#include <de.vk.function.hpp>
 
 #include <algorithm>
 #include <sstream>

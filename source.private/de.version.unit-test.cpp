@@ -51,6 +51,10 @@ TEST( de__version, ctor_major_minor_patch_failure_on_major )
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
 	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
+	}
 	catch ( ... )
 	{
 		FAIL( ) << "Unexpected exception.";
@@ -71,6 +75,10 @@ TEST( de__version, ctor_major_minor_patch_failure_on_minor )
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
 	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
+	}
 	catch ( ... )
 	{
 		FAIL( ) << "Unexpected exception.";
@@ -90,6 +98,10 @@ TEST( de__version, ctor_major_minor_patch_failure_on_patch )
 		std::regex re{ "de::version::version@[0-9]+ \\| Program violates condition: p_patch < 4096" };
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
+	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{

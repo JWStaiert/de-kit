@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\lib.de.math\lib.de.math.vcxproj">
+      <Project>{84132398-59d7-4027-b2a2-ad6c98533b8e}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\lib.de.os\lib.de.os.vcxproj">
       <Project>{a58e4c85-e2e3-4df8-a66e-fe758865d3f2}</Project>
     </ProjectReference>
@@ -33,8 +36,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source.private\de.render.unit-test.cpp" />
     <ClCompile Include="..\..\..\source.private\de.vk.device.unit-test.cpp" />
+    <ClCompile Include="..\..\..\source.private\de.vk.function.unit-test.cpp" />
+    <ClCompile Include="..\..\..\source.private\de.vk.op-ostream.unit-test.cpp" />
+    <ClCompile Include="..\..\..\source.private\de.vk.unit-test.cpp" />
     <ClCompile Include="..\..\..\source.private\de.vk.error.unit-test.cpp" />
     <ClCompile Include="..\..\..\source.private\de.vk.instance.unit-test.cpp" />
     <ClCompile Include="..\..\..\source.private\de.vk.loader.unit-test.cpp" />
@@ -113,7 +118,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private;$(SolutionDir)/../targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private;$(SolutionDir)/../targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -134,7 +139,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private;$(SolutionDir)/../targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private;$(SolutionDir)/../targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -157,7 +162,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private;$(SolutionDir)/../targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private;$(SolutionDir)/../targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -182,7 +187,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private;$(SolutionDir)/../targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest;$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private;$(SolutionDir)/../targets/active/$(ConfigurationName)/include;$(SolutionDir)/../../source.private/lib.googletest</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>

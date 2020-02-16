@@ -3,15 +3,10 @@
 #include "de.vk.device.hpp"
 
 #include <de.vk.error.hpp>
+#include <de.vk.function.hpp>
 #include <de.vk.instance.hpp>
-#include <de.vk.util.hpp>
 
 #include <vulkan/vulkan.h>
-
-static inline VkDevice vk_device( const de::vk::handle& p_handle )
-{
-	return static_cast<VkDevice>( static_cast<void*>( const_cast<de::vk::handle&>( p_handle ) ) );
-}
 
 namespace de
 {
@@ -68,23 +63,22 @@ namespace de
 			DE__VK__FUNCTION_LOAD( vkDestroyDevice, get_function_address );
 		}
 
-		static void vk_device_deleter( void* p_device )
+		static void vk_device_deleter( VkDevice p_device )
 		{
-			DE__VK__FUNCTION_CALL( vkDestroyDevice( static_cast<VkDevice>( p_device ), nullptr ) );
-			;
+			DE__VK__FUNCTION_CALL( vkDestroyDevice( p_device, nullptr ) );
 		}
 
 		device::device( const instance& p_instance, const device_configuration& p_configuration )
 			: m_instance{ p_instance }
 			, m_configuration{ p_configuration }
-			, m_device{ vk_device_deleter }
+			, m_device{ vk_device_deleter, nullptr }
 		{
 			create_device( );
 		}
 
 		void* device::get_function_address( const char* p_function_name )
 		{
-			DE__VK__ERROR__CHECK_AND_RETURN( void*, vkGetDeviceProcAddr( vk_device( m_device ), p_function_name ), nullptr, p_function_name );
+			DE__VK__ERROR__CHECK_AND_RETURN( void*, vkGetDeviceProcAddr( m_device, p_function_name ), nullptr, p_function_name );
 		}
 	}
 }

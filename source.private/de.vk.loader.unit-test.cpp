@@ -49,9 +49,9 @@ TEST( de__vk__loader, ctor_success )
 		EXPECT_EQ( uut.layers( )[ 1 ].description, "Second unit test layer." );
 		EXPECT_EQ( uut.layers( )[ 1 ].extensions.size( ), 0 );
 	}
-	catch ( const std::runtime_error& exc )
+	catch ( const std::exception& exc )
 	{
-		FAIL( ) << exc.what( );
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{
@@ -74,6 +74,10 @@ TEST( de__vk__loader, get_function_address_throws )
 		std::regex re{ "de::vk::loader::get_function_address@[0-9]+ \\| Condition indicates failure: \\( vk_return_value = de::vk::_vkGetInstanceProcAddr\\( nullptr, p_function_name \\) \\) == nullptr \\| p_function_name = \"\"" };
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
+	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{
@@ -103,6 +107,10 @@ TEST( de__vk__loader__real_vulkan, ctor_success )
 		EXPECT_TRUE( std::end( uut_extensions ) != std::find( std::begin( uut_extensions ), std::end( uut_extensions ), std::string( "VK_KHR_win32_surface" ) ) );
 		EXPECT_TRUE( std::end( uut_extensions ) != std::find( std::begin( uut_extensions ), std::end( uut_extensions ), std::string( "VK_EXT_debug_report" ) ) );
 		EXPECT_TRUE( std::end( uut_extensions ) != std::find( std::begin( uut_extensions ), std::end( uut_extensions ), std::string( "VK_EXT_debug_utils" ) ) );
+	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{

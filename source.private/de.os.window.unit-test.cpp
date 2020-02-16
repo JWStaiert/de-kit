@@ -42,11 +42,11 @@ TEST( de__os__window, ctor_success )
 	}
 	catch ( const std::exception& exc )
 	{
-		FAIL( ) << "Unexpected exception. " << exc.what( );
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{
-		FAIL( ) << "Unrecognized exception.";
+		FAIL( ) << "Unexpected exception.";
 	}
 }
 
@@ -92,11 +92,11 @@ TEST_F( de__os__window__test_fixture, dtor_unregisters_class )
 	}
 	catch ( const std::exception& exc )
 	{
-		FAIL( ) << "Unexpected exception. " << exc.what( );
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{
-		FAIL( ) << "Unrecognized exception.";
+		FAIL( ) << "Unexpected exception.";
 	}
 }
 
@@ -329,7 +329,7 @@ TEST_F( de__os__window__uut_visuble_test_fixture, event_loop_menu_commands )
 
 	bool l_command_a_selected = false;
 
-	while ( !l_command_a_selected)
+	while ( !l_command_a_selected )
 	{
 		while ( uut.has_event( uut_event ) )
 		{

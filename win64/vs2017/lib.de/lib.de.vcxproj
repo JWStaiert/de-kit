@@ -180,6 +180,8 @@
     <ClInclude Include="..\..\..\source.public\de.exception.hpp" />
     <ClInclude Include="..\..\..\source.public\de.handle.hpp" />
     <ClInclude Include="..\..\..\source.public\de.log.hpp" />
+    <ClInclude Include="..\..\..\source.public\de.native-types.hpp" />
+    <ClInclude Include="..\..\..\source.public\de.op-ostream.hpp" />
     <ClInclude Include="..\..\..\source.public\unit-test.de.hpp" />
     <ClInclude Include="..\..\..\source.public\unit-test.de.log.hpp" />
     <ClInclude Include="..\..\..\source.public\de.util.hpp" />
@@ -190,6 +192,7 @@
     <ClCompile Include="..\..\..\source.private\de.log.cpp" />
     <ClCompile Include="..\..\..\source.private\de.util.cpp" />
     <ClCompile Include="..\..\..\source.private\de.version.cpp" />
+    <ClCompile Include="..\..\..\source.public\de.op-ostream.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -24,12 +24,12 @@ namespace de
 
 		version& operator=( const version& ) noexcept = default;
 
-		operator std::uint32_t( ) const noexcept
+		operator std::string( ) const noexcept;
+
+		std::uint32_t raw( ) const noexcept
 		{
 			return m_version;
 		}
-
-		operator std::string( ) const noexcept;
 
 		friend inline bool operator==( const ::de::version& p_lhs, const ::de::version& p_rhs ) noexcept
 		{

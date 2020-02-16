@@ -19,9 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source.private\de.math.vec2.cpp" />
+    <ClCompile Include="..\..\..\source.private\de.math.vec2.unit-test.cpp" />
+    <ClCompile Include="de.math.op-ostream.unit-test.cpp" />
+    <ClCompile Include="de.math.vec3.unit-test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\lib.de.math\lib.de.math.vcxproj">
+      <Project>{84132398-59d7-4027-b2a2-ad6c98533b8e}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\lib.googletest\lib.googletest.vcxproj">
       <Project>{b04469aa-2233-4e81-9f21-0d1972756bd8}</Project>
     </ProjectReference>

@@ -63,16 +63,16 @@ TEST_F( de__vk__device_test_fixture, ctor_success )
 		// File: de-kit\khronos.vulkan-loader\loader\loader.c Line : 5512
 		//
 		// Expression : pCreateInfo->queueCreateInfoCount >= 1
-		
-		//de::vk::device uut{ m_instance, m_configuration }; 
+
+		// de::vk::device uut{ m_instance, m_configuration };
 	}
 	catch ( const std::exception& exc )
 	{
-		FAIL( ) << "Unexpected exception: " << exc.what( );
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{
-		FAIL( ) << "Unrecognized exception.";
+		FAIL( ) << "Unexpected exception.";
 	}
 }
 

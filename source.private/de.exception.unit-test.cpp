@@ -56,6 +56,10 @@ TEST( de__exception, DE__EXCEPTION__THROW_LOGIC_ERROR_throws )
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
 	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
+	}
 	catch ( ... )
 	{
 		FAIL( ) << "Unexpected exception.";
@@ -73,6 +77,10 @@ TEST( de__exception, DE__EXCEPTION__THROW_LOGIC_ERROR_WITH_MESSAGE_throws )
 		std::regex re{ "de__exception_DE__EXCEPTION__THROW_LOGIC_ERROR_WITH_MESSAGE_throws_Test::TestBody@[0-9]+ \\| Program violates condition: a != b \\| message" };
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
+	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{
@@ -92,6 +100,10 @@ TEST( de__exception, DE__EXCEPTION__THROW_RUNTIME_ERROR_throws )
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
 	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
+	}
 	catch ( ... )
 	{
 		FAIL( ) << "Unexpected exception.";
@@ -110,6 +122,10 @@ TEST( de__exception, DE__EXCEPTION__THROW_RUNTIME_ERROR_WITH_MESSAGE_throws )
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
 	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
+	}
 	catch ( ... )
 	{
 		FAIL( ) << "Unexpected exception.";
@@ -126,6 +142,10 @@ TEST( de__exception, DE__EXCEPTION__ASSERT_success )
 	try
 	{
 		DE__EXCEPTION__ASSERT( 0 < frp( 1 ) );
+	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{
@@ -147,6 +167,10 @@ TEST( de__exception, DE__EXCEPTION__ASSERT_failure )
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
 	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
+	}
 	catch ( ... )
 	{
 		FAIL( ) << "Unexpected exception.";
@@ -158,6 +182,10 @@ TEST( de__exception, DE__EXCEPTION__ASSERT_WITH_MESSAGE_success )
 	try
 	{
 		DE__EXCEPTION__ASSERT_WITH_MESSAGE( 0 < frp( 1 ), "message" );
+	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{
@@ -179,6 +207,10 @@ TEST( de__exception, DE__EXCEPTION__ASSERT_WITH_MESSAGE_failure )
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
 	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
+	}
 	catch ( ... )
 	{
 		FAIL( ) << "Unexpected exception.";
@@ -190,6 +222,10 @@ TEST( de__exception, DE__EXCEPTION__CHECK_success )
 	try
 	{
 		DE__EXCEPTION__CHECK( false );
+	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{
@@ -211,6 +247,10 @@ TEST( de__exception, DE__EXCEPTION__CHECK_failure )
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
 	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
+	}
 	catch ( ... )
 	{
 		FAIL( ) << "Unexpected exception.";
@@ -222,6 +262,10 @@ TEST( de__exception, DE__EXCEPTION__CHECK_WITH_MESSAGE_success )
 	try
 	{
 		DE__EXCEPTION__CHECK_WITH_MESSAGE( false, "message" );
+	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{
@@ -242,6 +286,10 @@ TEST( de__exception, DE__EXCEPTION__CHECK_WITH_MESSAGE_failure )
 		std::regex re{ "de__exception_DE__EXCEPTION__CHECK_WITH_MESSAGE_failure_Test::TestBody@[0-9]+ \\| Condition indicates failure: true \\| message" };
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
+	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{

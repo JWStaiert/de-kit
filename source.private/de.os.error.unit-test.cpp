@@ -59,6 +59,10 @@ TEST( de__os__error, DE__OS__ERROR__CHECK__ATOM_rv__success )
 	{
 		DE__OS__ERROR__CHECK( 0 == test_function_ATOM_rv( ATOM_result::success ) );
 	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
+	}
 	catch ( ... )
 	{
 		FAIL( ) << "Unexpected exception.";
@@ -79,6 +83,10 @@ TEST( de__os__error, DE__OS__ERROR__CHECK__ATOM_rv__failure )
 		std::regex re{ "de__os__error_DE__OS__ERROR__CHECK__ATOM_rv__failure_Test::TestBody@[0-9]+ \\| Condition indicates failure: 0 == test_function_ATOM_rv\\( ATOM_result::failure \\) \\| GetLastError\\(00000001\\)=\\[Incorrect function\\]" };
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
+	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{
@@ -110,6 +118,10 @@ TEST( de__os__error, DE__OS__ERROR__CHECK__BOOL_rv__success )
 	{
 		DE__OS__ERROR__CHECK( FALSE == test_function_BOOL_rv( BOOL_result::success ) );
 	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
+	}
 	catch ( ... )
 	{
 		FAIL( ) << "Unexpected exception.";
@@ -130,6 +142,10 @@ TEST( de__os__error, DE__OS__ERROR__CHECK__BOOL_rv__failure )
 		std::regex re{ "de__os__error_DE__OS__ERROR__CHECK__BOOL_rv__failure_Test::TestBody@[0-9]+ \\| Condition indicates failure: 0 == test_function_BOOL_rv\\( BOOL_result::failure \\) \\| GetLastError\\(00000001\\)=\\[Incorrect function\\]" };
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
+	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{
@@ -161,6 +177,10 @@ TEST( de__os__error, DE__OS__ERROR__CHECK__HRESULT_rv__success )
 	{
 		DE__OS__ERROR__CHECK( S_OK != test_function_HRESULT_rv( HRESULT_result::success ) );
 	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
+	}
 	catch ( ... )
 	{
 		FAIL( ) << "Unexpected exception.";
@@ -181,6 +201,10 @@ TEST( de__os__error, DE__OS__ERROR__CHECK__HRESULT_rv__failure )
 		std::regex re{ "de__os__error_DE__OS__ERROR__CHECK__HRESULT_rv__failure_Test::TestBody@[0-9]+ \\| Condition indicates failure: \\(\\(HRESULT\\)0L\\) != test_function_HRESULT_rv\\( HRESULT_result::failure \\) \\| GetLastError\\(00000001\\)=\\[Incorrect function\\]" };
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
+	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{

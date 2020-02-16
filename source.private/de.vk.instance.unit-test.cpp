@@ -5,6 +5,7 @@
 #include "de.vk.instance.hpp"
 
 #include <de.vk.loader.hpp>
+#include <de.vk.op-ostream.hpp>
 
 #include <unit-test.de.hpp>        // JWS: Path to vulkan loader.
 #include <unit-test.de.log.hpp>    // JWS: Log unit-test base class.
@@ -40,6 +41,8 @@ static const de::vk::instance_configuration s_config_debug_report_utils{
 	{ "VK_KHR_surface", "VK_KHR_win32_surface", "VK_EXT_debug_report", "VK_EXT_debug_utils" },
 };
 
+static const std::string UUT_TEST_DEVICE{ "GeForce GTX 1660" };
+
 class de__vk__instance_test_fixture : public de__log__test_fixture
 {
 public:
@@ -73,13 +76,13 @@ TEST_F( de__vk__instance_test , ctor_simple_config_success )
 	{
 		de::vk::instance uut { m_loader , s_config_simple };
 	}
-	catch ( const std::exception & exc )
+	catch ( const std::exception& exc )
 	{
-		FAIL( ) << "Unexpected exception: " << exc.what( );
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{
-		FAIL( ) << "Unrecognized exception.";
+		FAIL( ) << "Unexpected exception.";
 	}
 }
 
@@ -100,7 +103,7 @@ TEST_F( de__vk__instance_test , ctor_invalid_layer_failure )
 	}
 	catch ( ... )
 	{
-		FAIL( ) << "Unrecognized exception.";
+		FAIL( ) << "Unexpected exception.";
 	}
 }
 
@@ -121,7 +124,7 @@ TEST_F( de__vk__instance_test , ctor_invalid_extension_failure )
 	}
 	catch ( ... )
 	{
-		FAIL( ) << "Unrecognized exception.";
+		FAIL( ) << "Unexpected exception.";
 	}
 }
 
@@ -138,13 +141,13 @@ TEST_F( de__vk__instance_test , ctor_debug_report_config_success )
 
 		ClearLog( );
 	}
-	catch ( const std::exception & exc )
+	catch ( const std::exception& exc )
 	{
-		FAIL( ) << "Unexpected exception: " << exc.what( );
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{
-		FAIL( ) << "Unrecognized exception.";
+		FAIL( ) << "Unexpected exception.";
 	}
 }
 #endif
@@ -177,11 +180,11 @@ TEST_F( de__vk__instance_test_fixture, ctor_debug_utils_config_success )
 	}
 	catch ( const std::exception& exc )
 	{
-		FAIL( ) << "Unexpected exception: " << exc.what( );
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{
-		FAIL( ) << "Unrecognized exception.";
+		FAIL( ) << "Unexpected exception.";
 	}
 }
 
@@ -201,11 +204,66 @@ TEST_F( de__vk__instance_test_fixture, ctor_debug_report_utils_config_success )
 	}
 	catch ( const std::exception& exc )
 	{
-		FAIL( ) << "Unexpected exception: " << exc.what( );
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{
-		FAIL( ) << "Unrecognized exception.";
+		FAIL( ) << "Unexpected exception.";
+	}
+}
+
+class de__vk__instance_initialized_test_fixture : public de__vk__instance_test_fixture
+{
+public:
+	de::vk::instance m_instance;
+
+	de::vk::physical_device m_device;
+
+	de__vk__instance_initialized_test_fixture( )
+		: de__vk__instance_test_fixture{}
+		, m_instance{ m_loader, s_config_debug_report_utils }
+	{
+	}
+
+	virtual ~de__vk__instance_initialized_test_fixture( )
+	{
+	}
+
+	virtual void SetUp( )
+	{
+		de__vk__instance_test_fixture::SetUp( );
+
+		for ( auto device : m_instance.physical_devices( ) )
+		{
+			std::cerr << device.name << std::endl;
+			if ( device.name == UUT_TEST_DEVICE )
+			{
+				m_device = device;
+			}
+		}
+
+		ASSERT_EQ( m_device.name, UUT_TEST_DEVICE );
+	}
+
+	virtual void TearDown( )
+	{
+		de__vk__instance_test_fixture::TearDown( );
+	}
+};
+
+TEST_F( de__vk__instance_initialized_test_fixture, ctor_debug_report_utils_config_success )
+{
+	try
+	{
+		std::cerr << m_instance.physical_devices( ) << std::endl;
+	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
+	}
+	catch ( ... )
+	{
+		FAIL( ) << "Unexpected exception.";
 	}
 }
 

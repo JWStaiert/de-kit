@@ -207,6 +207,10 @@ TEST( de__vk__error, DE__VK__ERROR__CHECK_RESULT_success )
 	{
 		DE__VK__ERROR__CHECK_RESULT( test_function( VK_SUCCESS ) );
 	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
+	}
 	catch ( ... )
 	{
 		FAIL( ) << "Unexpected exception.";
@@ -226,6 +230,10 @@ TEST( de__vk__error, DE__VK__ERROR__CHECK_RESULT_failure )
 		std::regex re{ "de__vk__error_DE__VK__ERROR__CHECK_RESULT_failure_Test::TestBody@[0-9]+ \\| Condition indicates failure: \\( vk_result = de::vk::_test_function\\( VK_NOT_READY \\) \\) != VK_SUCCESS \\| vk_result = 00000001 = NOT_READY" };
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
+	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{
@@ -262,6 +270,10 @@ TEST( de__vk__error, DE__VK__ERROR__CHECK_AND_RETURN_success )
 	{
 		uut_test_function( "success value" );
 	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
+	}
 	catch ( ... )
 	{
 		FAIL( ) << "Unexpected exception.";
@@ -282,6 +294,10 @@ TEST( de__vk__error, DE__VK__ERROR__CHECK_AND_RETURN_failure )
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
 	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
+	}
 	catch ( ... )
 	{
 		FAIL( ) << "Unexpected exception.";
@@ -301,6 +317,10 @@ TEST( de__vk__error, DE__VK__ERROR__CHECK_AND_RETURN_failure_nullptr )
 		std::regex re{ "uut_test_function@[0-9]+ \\| Condition indicates failure: \\( vk_return_value = de::vk::_uut_function\\( p_value \\) \\) == nullptr \\| p_value = nullptr" };
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
+	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{

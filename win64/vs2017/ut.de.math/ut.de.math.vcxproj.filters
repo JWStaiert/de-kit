@@ -7,7 +7,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source.private\de.math.vec2.cpp">
+    <ClCompile Include="de.math.vec3.unit-test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source.private\de.math.vec2.unit-test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="de.math.op-ostream.unit-test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

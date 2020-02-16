@@ -22,12 +22,16 @@ namespace de
 		{
 		}
 
+		handle( handle&& ) = delete;
+
 		handle( const handle& ) = delete;
 
 		inline ~handle( )
 		{
 			m_deleter( m_handle );
 		}
+
+		handle& operator=( handle&& ) = delete;
 
 		handle& operator=( const handle& ) = delete;
 

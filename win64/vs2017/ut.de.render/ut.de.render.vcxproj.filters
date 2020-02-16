@@ -7,9 +7,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source.private\de.render.unit-test.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source.private\de.vk.device.unit-test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -20,6 +17,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source.private\de.vk.loader.unit-test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source.private\de.vk.unit-test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source.private\de.vk.op-ostream.unit-test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source.private\de.vk.function.unit-test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

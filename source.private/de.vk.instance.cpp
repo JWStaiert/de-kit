@@ -4,23 +4,15 @@
 
 #include <de.log.hpp>
 #include <de.util.hpp>
+
 #include <de.vk.error.hpp>
+#include <de.vk.function.hpp>
 #include <de.vk.loader.hpp>
 
 #include <algorithm>
 #include <iostream>
 
 #include <vulkan/vulkan.h>
-
-static inline VkInstance vk_instance( const de::vk::handle& p_handle )
-{
-	return static_cast<VkInstance>( static_cast<void*>( const_cast<de::vk::handle&>( p_handle ) ) );
-}
-
-static inline VkPhysicalDevice vk_physical_device( const void* p_handle )
-{
-	return static_cast<VkPhysicalDevice>( const_cast<void*>( p_handle ) );
-}
 
 namespace de
 {
@@ -96,10 +88,10 @@ namespace de
 			l_app_info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
 			;
 			l_app_info.pApplicationName   = m_configuration.application_name.c_str( );
-			l_app_info.applicationVersion = m_configuration.application_version;
+			l_app_info.applicationVersion = m_configuration.application_version.raw( );
 			l_app_info.pEngineName        = "de-kit";
 			l_app_info.engineVersion      = VK_MAKE_VERSION( 0, 0, 0 );
-			l_app_info.apiVersion         = m_configuration.api_version;
+			l_app_info.apiVersion         = m_configuration.api_version.raw( );
 
 			/* Create temporary array of pointers to const char *. from configuraiton layer names. */
 			std::vector<const char*> l_layer_strings{};
@@ -155,7 +147,7 @@ namespace de
 
 				VkDebugReportCallbackEXT l_callback = nullptr;
 
-				DE__VK__ERROR__CHECK_RESULT( vkCreateDebugReportCallbackEXT( vk_instance( m_instance ), &l_create_info, nullptr, &l_callback ) );
+				DE__VK__ERROR__CHECK_RESULT( vkCreateDebugReportCallbackEXT( m_instance, &l_create_info, nullptr, &l_callback ) );
 
 				DE__VK__FUNCTION_LOAD( vkDestroyDebugReportCallbackEXT, get_function_address );
 
@@ -208,7 +200,7 @@ namespace de
 
 				VkDebugUtilsMessengerEXT l_messenger = nullptr;
 
-				DE__VK__ERROR__CHECK_RESULT( vkCreateDebugUtilsMessengerEXT( vk_instance( m_instance ), &l_create_info, nullptr, &l_messenger ) );
+				DE__VK__ERROR__CHECK_RESULT( vkCreateDebugUtilsMessengerEXT( m_instance, &l_create_info, nullptr, &l_messenger ) );
 
 				DE__VK__FUNCTION_LOAD( vkDestroyDebugUtilsMessengerEXT, get_function_address );
 
@@ -222,9 +214,9 @@ namespace de
 
 			std::uint32_t                 l_device_count = 0u;
 			std::vector<VkPhysicalDevice> l_devices;
-			DE__VK__ERROR__CHECK_RESULT( vkEnumeratePhysicalDevices( vk_instance( m_instance ), &l_device_count, nullptr ) );
+			DE__VK__ERROR__CHECK_RESULT( vkEnumeratePhysicalDevices( m_instance, &l_device_count, nullptr ) );
 			l_devices.resize( l_device_count );
-			DE__VK__ERROR__CHECK_RESULT( vkEnumeratePhysicalDevices( vk_instance( m_instance ), &l_device_count, l_devices.data( ) ) );
+			DE__VK__ERROR__CHECK_RESULT( vkEnumeratePhysicalDevices( m_instance, &l_device_count, l_devices.data( ) ) );
 
 			for ( auto device : l_devices )
 			{
@@ -243,7 +235,7 @@ namespace de
 			for ( auto i = 0; i < m_physical_devices.size( ); ++i )
 			{
 				VkPhysicalDeviceProperties l_device_properties{};
-				DE__VK__FUNCTION_CALL( vkGetPhysicalDeviceProperties( vk_physical_device( m_physical_devices[ i ].handle ), &l_device_properties ) );
+				DE__VK__FUNCTION_CALL( vkGetPhysicalDeviceProperties( m_physical_devices[ i ].handle, &l_device_properties ) );
 
 				m_physical_devices[ i ].name           = l_device_properties.deviceName;
 				m_physical_devices[ i ].api_version    = l_device_properties.apiVersion;
@@ -258,7 +250,7 @@ namespace de
 			for ( auto i = 0; i < m_physical_devices.size( ); ++i )
 			{
 				VkPhysicalDeviceFeatures l_device_features{};
-				DE__VK__FUNCTION_CALL( vkGetPhysicalDeviceFeatures( vk_physical_device( m_physical_devices[ i ].handle ), &l_device_features ) );
+				DE__VK__FUNCTION_CALL( vkGetPhysicalDeviceFeatures( m_physical_devices[ i ].handle, &l_device_features ) );
 			}
 		}
 
@@ -269,7 +261,7 @@ namespace de
 			for ( auto i = 0; i < m_physical_devices.size( ); ++i )
 			{
 				VkPhysicalDeviceMemoryProperties l_device_memory_properties{};
-				DE__VK__FUNCTION_CALL( vkGetPhysicalDeviceMemoryProperties( vk_physical_device( m_physical_devices[ i ].handle ), &l_device_memory_properties ) );
+				DE__VK__FUNCTION_CALL( vkGetPhysicalDeviceMemoryProperties( m_physical_devices[ i ].handle, &l_device_memory_properties ) );
 
 				/* Process memory heaps. */
 
@@ -308,9 +300,9 @@ namespace de
 			{
 				std::uint32_t                        l_device_queue_families_count = 0;
 				std::vector<VkQueueFamilyProperties> l_device_queue_families;
-				DE__VK__FUNCTION_CALL( vkGetPhysicalDeviceQueueFamilyProperties( vk_physical_device( m_physical_devices[ i ].handle ), &l_device_queue_families_count, nullptr ) );
+				DE__VK__FUNCTION_CALL( vkGetPhysicalDeviceQueueFamilyProperties( m_physical_devices[ i ].handle, &l_device_queue_families_count, nullptr ) );
 				l_device_queue_families.resize( l_device_queue_families_count );
-				DE__VK__FUNCTION_CALL( vkGetPhysicalDeviceQueueFamilyProperties( vk_physical_device( m_physical_devices[ i ].handle ), &l_device_queue_families_count, l_device_queue_families.data( ) ) );
+				DE__VK__FUNCTION_CALL( vkGetPhysicalDeviceQueueFamilyProperties( m_physical_devices[ i ].handle, &l_device_queue_families_count, l_device_queue_families.data( ) ) );
 
 				/* Process queue families. */
 
@@ -320,11 +312,11 @@ namespace de
 
 					l_queue_family.count = queue.queueCount;
 
-					l_queue_family.flags.compute          = ( ( VK_QUEUE_COMPUTE_BIT & queue.queueFlags ) != 0 );
-					l_queue_family.flags.graphics         = ( ( VK_QUEUE_GRAPHICS_BIT & queue.queueFlags ) != 0 );
-					l_queue_family.flags.protected_memory = ( ( VK_QUEUE_PROTECTED_BIT & queue.queueFlags ) != 0 );
-					l_queue_family.flags.sparse_binding   = ( ( VK_QUEUE_SPARSE_BINDING_BIT & queue.queueFlags ) != 0 );
-					l_queue_family.flags.transfer         = ( ( VK_QUEUE_TRANSFER_BIT & queue.queueFlags ) != 0 );
+					l_queue_family.compute          = ( ( VK_QUEUE_COMPUTE_BIT & queue.queueFlags ) != 0 );
+					l_queue_family.graphics         = ( ( VK_QUEUE_GRAPHICS_BIT & queue.queueFlags ) != 0 );
+					l_queue_family.protected_memory = ( ( VK_QUEUE_PROTECTED_BIT & queue.queueFlags ) != 0 );
+					l_queue_family.sparse_binding   = ( ( VK_QUEUE_SPARSE_BINDING_BIT & queue.queueFlags ) != 0 );
+					l_queue_family.transfer         = ( ( VK_QUEUE_TRANSFER_BIT & queue.queueFlags ) != 0 );
 
 					m_physical_devices[ i ].queue_families.push_back( l_queue_family );
 				}
@@ -339,9 +331,9 @@ namespace de
 			{
 				std::uint32_t                  l_layer_count = 0u;
 				std::vector<VkLayerProperties> l_layer_properties;
-				DE__VK__ERROR__CHECK_RESULT( vkEnumerateDeviceLayerProperties( vk_physical_device( m_physical_devices[ i ].handle ), &l_layer_count, nullptr ) );
+				DE__VK__ERROR__CHECK_RESULT( vkEnumerateDeviceLayerProperties( m_physical_devices[ i ].handle, &l_layer_count, nullptr ) );
 				l_layer_properties.resize( l_layer_count );
-				DE__VK__ERROR__CHECK_RESULT( vkEnumerateDeviceLayerProperties( vk_physical_device( m_physical_devices[ i ].handle ), &l_layer_count, l_layer_properties.data( ) ) );
+				DE__VK__ERROR__CHECK_RESULT( vkEnumerateDeviceLayerProperties( m_physical_devices[ i ].handle, &l_layer_count, l_layer_properties.data( ) ) );
 
 				for ( auto layer_property : l_layer_properties )
 				{
@@ -368,9 +360,9 @@ namespace de
 				{
 					std::uint32_t                      l_extension_count = 0u;
 					std::vector<VkExtensionProperties> l_extension_properties;
-					DE__VK__ERROR__CHECK_RESULT( vkEnumerateDeviceExtensionProperties( vk_physical_device( m_physical_devices[ i ].handle ), nullptr, &l_extension_count, nullptr ) );
+					DE__VK__ERROR__CHECK_RESULT( vkEnumerateDeviceExtensionProperties( m_physical_devices[ i ].handle, nullptr, &l_extension_count, nullptr ) );
 					l_extension_properties.resize( l_extension_count );
-					DE__VK__ERROR__CHECK_RESULT( vkEnumerateDeviceExtensionProperties( vk_physical_device( m_physical_devices[ i ].handle ), nullptr, &l_extension_count, l_extension_properties.data( ) ) );
+					DE__VK__ERROR__CHECK_RESULT( vkEnumerateDeviceExtensionProperties( m_physical_devices[ i ].handle, nullptr, &l_extension_count, l_extension_properties.data( ) ) );
 
 					for ( auto extension_property : l_extension_properties )
 					{
@@ -389,9 +381,9 @@ namespace de
 				{
 					std::uint32_t                      l_extension_count = 0u;
 					std::vector<VkExtensionProperties> l_extension_properties;
-					DE__VK__ERROR__CHECK_RESULT( vkEnumerateDeviceExtensionProperties( vk_physical_device( m_physical_devices[ i ].handle ), m_physical_devices[ i ].layers[ j ].name.c_str( ), &l_extension_count, nullptr ) );
+					DE__VK__ERROR__CHECK_RESULT( vkEnumerateDeviceExtensionProperties( m_physical_devices[ i ].handle, m_physical_devices[ i ].layers[ j ].name.c_str( ), &l_extension_count, nullptr ) );
 					l_extension_properties.resize( l_extension_count );
-					DE__VK__ERROR__CHECK_RESULT( vkEnumerateDeviceExtensionProperties( vk_physical_device( m_physical_devices[ i ].handle ), m_physical_devices[ i ].layers[ j ].name.c_str( ), &l_extension_count, l_extension_properties.data( ) ) );
+					DE__VK__ERROR__CHECK_RESULT( vkEnumerateDeviceExtensionProperties( m_physical_devices[ i ].handle, m_physical_devices[ i ].layers[ j ].name.c_str( ), &l_extension_count, l_extension_properties.data( ) ) );
 
 					for ( auto extension_property : l_extension_properties )
 					{
@@ -406,16 +398,16 @@ namespace de
 			}
 		}
 
-		static void vk_instance_deleter( void* p_instance )
+		static void vk_instance_deleter( VkInstance p_instance )
 		{
-			DE__VK__FUNCTION_CALL( vkDestroyInstance( static_cast<VkInstance>( p_instance ), nullptr ) );
+			DE__VK__FUNCTION_CALL( vkDestroyInstance( p_instance, nullptr ) );
 		}
 
 		instance::instance( const loader& p_loader, const de::vk::instance_configuration& p_configuration )
 			: m_loader{ p_loader }
 			, m_configuration{ p_configuration }
 			, m_physical_devices{}
-			, m_instance{ vk_instance_deleter }
+			, m_instance{ vk_instance_deleter, nullptr }
 		{
 			assert_layers_available( );
 
@@ -445,7 +437,7 @@ namespace de
 		/* */
 		void* instance::get_function_address( const char* p_function_name ) const
 		{
-			DE__VK__ERROR__CHECK_AND_RETURN( void*, vkGetInstanceProcAddr( vk_instance( m_instance ), p_function_name ), nullptr, p_function_name );
+			DE__VK__ERROR__CHECK_AND_RETURN( void*, vkGetInstanceProcAddr( m_instance, p_function_name ), nullptr, p_function_name );
 		}
 	}
 }

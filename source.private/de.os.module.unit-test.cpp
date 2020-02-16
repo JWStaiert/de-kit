@@ -65,6 +65,10 @@ TEST_F( de__os__module__test_fixture, ctor_failure )
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
 	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
+	}
 	catch ( ... )
 	{
 		FAIL( ) << "Unexpected exception.";
@@ -95,6 +99,10 @@ TEST_F( de__os__module__test_fixture, dtor_failure )
 
 		ClearLog( );
 	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
+	}
 	catch ( ... )
 	{
 		FAIL( ) << "Unexpected exception.";
@@ -121,6 +129,10 @@ TEST_F( de__os__module__test_fixture, get_function_address_failure )
 		std::regex re{ "de::os::module::get_function_address@[0-9]+ \\| Condition indicates failure: l_proc == 0 \\| GetLastError\\(0000007F\\)=\\[The specified procedure could not be found\\]" };
 
 		EXPECT_TRUE( std::regex_match( exc.what( ), re ) ) << exc.what( );
+	}
+	catch ( const std::exception& exc )
+	{
+		FAIL( ) << "Unexpected standard exception: " << exc.what( );
 	}
 	catch ( ... )
 	{

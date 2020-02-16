@@ -1,12 +1,18 @@
 #pragma once
 /* Copyright (c) 2020 Jason William Staiert. All Rights Reserved. */
 
+#include <de.handle.hpp>
 #include <de.version.hpp>
-#include <de.vk.loader.hpp>
-#include <de.vk.util.hpp>
 
+#include <de.math.vec3.hpp>
+
+#include <de.vk.loader.hpp>
+
+#include <ostream>
 #include <string>
 #include <vector>
+
+#include <vulkan/vulkan.h>
 
 namespace de
 {
@@ -25,25 +31,16 @@ namespace de
 			version         api_version{ 1, 0, 0 };
 		};
 
-		struct extent
-		{
-			std::uint32_t width  = 0u;
-			std::uint32_t height = 0u;
-			std::uint32_t depth  = 0u;
-		};
+		using extent = de::math::vec3<std::uint32_t>;
 
 		struct queue_family
 		{
-			struct
-			{
-				bool graphics         = false;
-				bool compute          = false;
-				bool transfer         = false;
-				bool sparse_binding   = false;
-				bool protected_memory = false;
-			} flags;
-
-			std::uint32_t count = 0;
+			std::uint32_t count            = 0;
+			bool          graphics         = false;
+			bool          compute          = false;
+			bool          transfer         = false;
+			bool          sparse_binding   = false;
+			bool          protected_memory = false;
 
 			extent min_image_transfer_granularity;
 		};
@@ -74,14 +71,14 @@ namespace de
 
 		struct physical_device
 		{
-			std::string    name;
-			de::version    api_version;
-			de::version    driver_version;
-			memory_heaps   memory_heaps;
-			queue_families queue_families;
-			layers         layers;
-			extensions     extensions;
-			void*          handle;
+			std::string      name;
+			de::version      api_version;
+			de::version      driver_version;
+			memory_heaps     memory_heaps;
+			queue_families   queue_families;
+			layers           layers;
+			extensions       extensions;
+			VkPhysicalDevice handle;
 		};
 
 		using physical_devices = std::vector<physical_device>;
@@ -94,7 +91,7 @@ namespace de
 
 			physical_devices m_physical_devices;
 
-			handle m_instance;
+			de::handle<VkInstance> m_instance;
 
 			void assert_layers_available( );
 

@@ -1,11 +1,13 @@
 #pragma once
 /* Copyright (c) 2020 Jason William Staiert. All Rights Reserved. */
 
+#include <de.handle.hpp>
 #include <de.version.hpp>
-#include <de.vk.util.hpp>
 
 #include <string>
 #include <vector>
+
+#include <vulkan/vulkan.h>
 
 namespace de
 {
@@ -24,7 +26,7 @@ namespace de
 
 			const device_configuration& m_configuration;
 
-			handle m_device;
+			de::handle<VkDevice> m_device;
 
 			void create_device( );
 

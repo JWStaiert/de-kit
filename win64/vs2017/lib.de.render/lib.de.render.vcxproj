@@ -19,18 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\lib.de.os\lib.de.os.vcxproj">
-      <Project>{a58e4c85-e2e3-4df8-a66e-fe758865d3f2}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\lib.de\lib.de.vcxproj">
-      <Project>{8dc6f2c9-dd77-4915-b7a3-a5ce45aee430}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\..\..\source.private\de.vk.device.hpp" />
     <ClInclude Include="..\..\..\source.private\de.vk.error.hpp" />
     <ClInclude Include="..\..\..\source.private\de.vk.instance.hpp" />
     <ClInclude Include="..\..\..\source.private\de.vk.loader.hpp" />
+    <ClInclude Include="..\..\..\source.private\de.vk.op-ostream.hpp" />
+    <ClInclude Include="..\..\..\source.private\de.vk.function.hpp" />
     <ClInclude Include="..\..\..\source.public\de.render.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -38,6 +32,7 @@
     <ClCompile Include="..\..\..\source.private\de.vk.error.cpp" />
     <ClCompile Include="..\..\..\source.private\de.vk.instance.cpp" />
     <ClCompile Include="..\..\..\source.private\de.vk.loader.cpp" />
+    <ClCompile Include="..\..\..\source.private\de.vk.op-ostream.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -111,7 +106,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.private;$(SolutionDir)/../../source.public;$(SolutionDir)/../targets/active/$(ConfigurationName)/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private;$(SolutionDir)/../targets/active/$(ConfigurationName)/include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -131,7 +126,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.private;$(SolutionDir)/../../source.public;$(SolutionDir)/../targets/active/$(ConfigurationName)/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private;$(SolutionDir)/../targets/active/$(ConfigurationName)/include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -153,7 +148,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.private;$(SolutionDir)/../../source.public;$(SolutionDir)/../targets/active/$(ConfigurationName)/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private;$(SolutionDir)/../targets/active/$(ConfigurationName)/include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -177,7 +172,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.private;$(SolutionDir)/../../source.public;$(SolutionDir)/../targets/active/$(ConfigurationName)/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/../../source.public;$(SolutionDir)/../../source.private;$(SolutionDir)/../targets/active/$(ConfigurationName)/include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp17</LanguageStandard>

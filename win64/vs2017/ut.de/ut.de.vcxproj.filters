@@ -22,5 +22,11 @@
     <ClCompile Include="..\..\..\source.private\de.util.unit-test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source.private\de.native-types.unit-test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source.private\de.op-stream.unit-test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

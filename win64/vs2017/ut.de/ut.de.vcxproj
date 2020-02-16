@@ -30,6 +30,8 @@
     <ClCompile Include="..\..\..\source.private\de.exception.unit-test.cpp" />
     <ClCompile Include="..\..\..\source.private\de.handle.unit-test.cpp" />
     <ClCompile Include="..\..\..\source.private\de.log.unit-test.cpp" />
+    <ClCompile Include="..\..\..\source.private\de.native-types.unit-test.cpp" />
+    <ClCompile Include="..\..\..\source.private\de.op-stream.unit-test.cpp" />
     <ClCompile Include="..\..\..\source.private\de.util.unit-test.cpp" />
     <ClCompile Include="..\..\..\source.private\de.version.unit-test.cpp" />
   </ItemGroup>
